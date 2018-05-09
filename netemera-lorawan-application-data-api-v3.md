@@ -17,13 +17,13 @@
 
 ## Introduction
 
-Netemera LoRaWAN Application Data API V3 is an HTTPS-based interface enabling programmatic communication with commissioned end-devices organized into applications.
+Netemera LoRaWAN Application Data API V3 is an HTTPS-based interface that enables programmatic communication with commissioned end-devices organized into applications.
 
 A client can subscribe to receive live uplink packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send downlink packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Additional RESTful endpoints allow for retrieval of historical communications.
 
 The API is available at the following base URL: https://APPLICATION_SERVER_HOST/api/v3. Requests and response bodies are formatted in [JSON](https://www.json.org/) and the [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol is used for authorization.
 
-> **Important:** You cannot run any of the sample requests in this guide as-is. Replace call-specific parameters such as tokens and IDs with your own values.
+> **Important:** You cannot run any of the sample requests in this guide as-is. Replace call-specific parameters such as host names, tokens and IDs with your own values.
 
 ## Authorization
 
@@ -195,7 +195,7 @@ data: {
   "ul_freq": 868.3,
   "gw_info": [{
       "id": "7276ff002e0400e8",
-      "rssi": -116.0:,
+      "rssi": -116.0,
       "snr": -15.2
   }],
   "frm_payload":"05F0"
@@ -216,15 +216,11 @@ data: {
   "ul_freq": 868.2,
   "gw_info": [{
       "id": "7276ff002e0400e8",
-      "rssi": -80.0:,
+      "rssi": -80.0,
       "snr": -11.5
   }],
   "frm_payload":"AAF0"
 }
-
-data:
-
-...
 ```
 
 ### Receive live uplink packets from application
@@ -314,15 +310,11 @@ data: {
   "ul_freq": 868.2,
   "gw_info": [{
       "id": "7276ff002e0400e8",
-      "rssi": -80.0:,
+      "rssi": -80.0,
       "snr": -11.5
   }],
   "frm_payload":"001F"
 }
-
-data:
-
-...
 ```
 
 ### Retrieve historical uplink packets by end-device and time range
@@ -389,12 +381,11 @@ Content-Type: application/json
    "ul_freq": 868.3,
    "gw_info": [{
       "id": "7276ff002e0400e8",
-      "rssi": -116.0:,
+      "rssi": -116.0,
       "snr": -15.2
    }],
   "frm_payload":"0000"
- },
- ...]
+ }]
 ```
 
 ## Downlink Packets
