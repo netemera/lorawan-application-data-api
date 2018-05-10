@@ -72,7 +72,7 @@ HTTP:
 
 ```http
 POST /api/v1/oauth2/token?grant_type=client_credentials&audience=https://APPLICATION_SERVER_HOST/api/v3" HTTP/1.1
-Host: https://AUTHORIZATION_SERVER_HOST
+Host: AUTHORIZATION_SERVER_HOST
 Authorization: Basic TOKEN
 ```
 
@@ -114,7 +114,7 @@ Attribute|Type|Optional|Description
 `f_cnt_up`|integer|false|The uplink frame counter
 `ack`|boolean|false|The acknowledgment of the last downlink packet
 `adr`|boolean|false|The ADR-enabled flag
-`data_rate`|string|false|The data rate
+`data_rate`|integer|false|The data rate
 `ul_freq`|number|false|The frequency in Mhz
 `gw_info`|[[Gateway Information](#gateway-information-object)]|true|An optional array of Gateway Information objects (in descending order by RSSI)
 `frm_payload`|string|true|An optional payload in hex
@@ -191,7 +191,7 @@ data: {
   "f_cnt_up": 1,
   "ack": false,
   "adr": false,
-  "data_rate": "SW12BW125",
+  "data_rate": 1,
   "ul_freq": 868.3,
   "gw_info": [{
       "id": "7276ff002e0400e8",
@@ -212,7 +212,7 @@ data: {
   "f_cnt_up": 123,
   "ack": false,
   "adr": false,
-  "data_rate": "SW12BW125",
+  "data_rate": 0,
   "ul_freq": 868.2,
   "gw_info": [{
       "id": "7276ff002e0400e8",
@@ -231,7 +231,7 @@ GET /api/v3/uplink-packets/applications/{app_id}
 
 Parameter|Type|Optional|Description
 ---|---|---|---
-`app_id`|string|false|The identifier of the application
+`app_id`|string|false|The identifier of an application
 
 #### Request headers
 
@@ -285,11 +285,11 @@ data: {
   "f_cnt_up": 1,
   "ack": false,
   "adr": false,
-  "data_rate": "SW12BW125",
+  "data_rate": 0,
   "ul_freq": 868.3,
   "gw_info": [{
       "id": "7276ff002e0400e8",
-      "rssi": -116.0:,
+      "rssi": -116.0,
       "snr": -15.2
   }],
   "frm_payload":"200A"
@@ -306,7 +306,7 @@ data: {
   "f_cnt_up": 123,
   "ack": false,
   "adr": false,
-  "data_rate": "SW12BW125",
+  "data_rate": 1,
   "ul_freq": 868.2,
   "gw_info": [{
       "id": "7276ff002e0400e8",
@@ -377,7 +377,7 @@ Content-Type: application/json
    "f_cnt_up": 1,
    "ack": false,
    "adr": false,
-   "data_rate": "SW12BW125",
+   "data_rate": 0,
    "ul_freq": 868.3,
    "gw_info": [{
       "id": "7276ff002e0400e8",
