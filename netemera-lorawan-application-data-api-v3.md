@@ -396,7 +396,7 @@ A Downlink Packet object has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI-64 identifier of the end-device in hex
+`dev_eui`|string|false|The EUI-64 identifier of the end-device in hex
 `f_port`|integer|true|The port in range from 1 to 223
 `confirmed`|boolean|false|Require confirmation from the end-device
 `frm_payload`|string|true|The payload in hex
@@ -449,7 +449,7 @@ curl \
   --url 'https://APPLICATION_SERVER_HOST/api/v3/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"f_port":2,"confirmed":false,"frm_payload":"0000"}'
+  --data '{"DEV_EUI","f_port":2,"confirmed":false,"frm_payload":"0000"}'
 ```
 
 #### Sample response
