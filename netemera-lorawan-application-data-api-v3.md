@@ -185,7 +185,6 @@ curl \
 HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Type: text/event-stream
-Last-Event-ID: AAABWBywFbU=
 
 data:{
   "dev_eui": "DEV_EUI",
@@ -283,7 +282,6 @@ curl \
 HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Type: text/event-stream
-Last-Event-ID: AAABWBywFbU=
 
 data:{
   "dev_eui": "70b3d5ca40000031",
