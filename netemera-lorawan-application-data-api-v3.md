@@ -11,6 +11,7 @@
   - [Receive live uplink packets from end-device](#receive-live-uplink-packets-from-end-device)
   - [Receive live uplink packets from application](#receive-live-uplink-packets-from-application)
   - [Retrieve historical uplink packets by end-device and time range](#retrieve-historical-uplink-packets-by-end-device-and-time-range)
+  - [Retrieve historical uplink packets by application and time range](#retrieve-historical-uplink-packets-by-application-and-time-range)
 - [Downlink Packets](#downlink-packets)
   - [Downlink packet object](#downlink-packet-object)
   - [Send downlink packets to end-device](#send-downlink-packets-to-end-device)
@@ -372,6 +373,77 @@ Content-Type: application/json
 
 [{
    "dev_eui": "DEV_EUI",
+   "recv_time": "2016-10-31T21:41:51.765598114Z",
+   "f_port": 1,
+   "f_cnt_up": 1,
+   "ack": false,
+   "adr": false,
+   "data_rate": 0,
+   "ul_freq": 868.3,
+   "gw_info": [{
+      "id": "7276ff002e0400e8",
+      "rssi": -116.0,
+      "snr": -15.2
+   }],
+  "frm_payload":"0000"
+ }]
+```
+
+### Retrieve historical uplink packets by application and time range
+
+GET /api/v3/uplink-packets/applications/{app_id}?from_time={from_time}&until_time={until_time}
+
+#### Request parameters
+
+Parameter|Type|Optional|Description
+---|---|---|---
+`app_id`|string|false|The identifier of the application
+`from_time`|string|false|The beginning of the timestamp range (inclusive) in ISO 8601 format (UTC)
+`until_time`|string|true|The end of the timestamp range (exclusive) in ISO 8601 format (UTC). Defaults to current timestamp
+
+#### Request headers
+
+Header|Optional
+---|---
+`Accept: application/json`|true
+
+#### Response
+
+Status|Body|Description
+---|---|---
+`200 OK`|An array of [Uplink Packet](#uplink-packet) objects|
+`401 Unauthorized`|Empty|Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
+`405 Forbidden`|Empty|Missing permissions
+
+#### Sample request
+
+HTTP:
+
+```http
+GET /api/v3/uplink-packets/applications/APP_ID?from_time=2016-10-31T21:41:51.765598114Z&until_time=2016-10-31T22:32:09.000000000Z HTTP/1.1
+Host: APPLICATION_SERVER_HOST
+Authorization: Bearer ACCESS_TOKEN
+Accept: application/json
+```
+
+Shell:
+
+```shell
+curl
+  --request GET \
+  --url 'https://APPLICATION_SERVER_HOST/api/v3/uplink-packets/applications/APP_ID?from_time=2016-10-31T21:41:51.765598114Z&until_time=2016-10-31T22:32:09.000000000Z' \
+  --header 'Authorization: Bearer ACCESS_TOKEN' \
+  --header 'Accept: application/json'
+```
+
+#### Sample response
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[{
+   "dev_eui": "7276ff002e046600",
    "recv_time": "2016-10-31T21:41:51.765598114Z",
    "f_port": 1,
    "f_cnt_up": 1,
