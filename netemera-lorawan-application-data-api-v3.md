@@ -145,6 +145,7 @@ Parameter|Type|Optional|Description
 Header|Optional
 ---|---
 `Accept: text/event-stream`|false
+`Last-Event-ID: {id}`|true
 `Cache-Control: no-cache`|false
 
 #### Response
@@ -184,8 +185,9 @@ curl \
 HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Type: text/event-stream
+Last-Event-ID: AAABWBywFbU=
 
-data: {
+data:{
   "dev_eui": "DEV_EUI",
   "recv_time": "2016-10-31T21:41:51.765598114Z",
   "f_port": 1,
@@ -201,12 +203,13 @@ data: {
   }],
   "frm_payload":"05F0"
 }
+id:AAABWByxABU=
 
 data:
 
 data:
 
-data: {
+data:{
   "dev_eui": "DEV_EUI",
   "recv_time": "2016-10-31T21:41:53.765598114Z",
   "f_port": 11,
@@ -222,6 +225,7 @@ data: {
   }],
   "frm_payload":"AAF0"
 }
+id:AAABWByxB+U=
 ```
 
 ### Receive live uplink packets from application
@@ -239,6 +243,7 @@ Parameter|Type|Optional|Description
 Header|Optional
 ---|---
 `Accept: text/event-stream`|false
+`Last-Event-ID: {id}`|true
 `Cache-Control: no-cache`|false
 
 #### Response
@@ -278,8 +283,9 @@ curl \
 HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Type: text/event-stream
+Last-Event-ID: AAABWBywFbU=
 
-data: {
+data:{
   "dev_eui": "70b3d5ca40000031",
   "recv_time": "2016-10-31T21:41:51.765598114Z",
   "f_port": 1,
@@ -295,12 +301,13 @@ data: {
   }],
   "frm_payload":"200A"
 }
+id:AAABWByxABU=
 
 data:
 
 data:
 
-data: {
+data:{
   "dev_eui": "70b3d5ca40000032",
   "recv_time": "2016-10-31T21:41:53.765598114Z",
   "f_port": 11,
@@ -316,6 +323,7 @@ data: {
   }],
   "frm_payload":"001F"
 }
+id:AAABWByxB+U=
 ```
 
 ### Retrieve historical uplink packets by end-device and time range
