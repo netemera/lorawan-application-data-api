@@ -88,6 +88,8 @@ curl \
 
 #### Sample response
 
+HTTP
+
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
@@ -180,6 +182,8 @@ curl \
 ```
 
 #### Sample response
+
+HTTP
 
 ```http
 HTTP/1.1 200 OK
@@ -278,6 +282,8 @@ curl \
 
 #### Sample response
 
+HTTP
+
 ```http
 HTTP/1.1 200 OK
 Connection: keep-alive
@@ -373,6 +379,8 @@ curl
 
 #### Sample response
 
+HTTP
+
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -443,6 +451,8 @@ curl
 ```
 
 #### Sample response
+
+HTTP
 
 ```http
 HTTP/1.1 200 OK
@@ -527,11 +537,13 @@ curl \
   --url 'https://APPLICATION_SERVER_HOST/api/v3/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"DEV_EUI","f_port":2,"confirmed":false,"frm_payload":"0000"}'
+  --data '{"dev_eui":"DEV_EUI","f_port":2,"confirmed":false,"frm_payload":"0000"}'
 ```
 
 #### Sample response
 
-```
-HTTP/1.1 202 Accepted
+HTTP
+
+```http
+HTTP/1.1 201
 ```
