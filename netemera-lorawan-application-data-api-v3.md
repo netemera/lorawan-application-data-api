@@ -8,8 +8,8 @@
 - [Uplink Packets](#uplink-packets)
   - [Uplink Packet object](#uplink-packet-object)
     - [Gateway Information object](#gateway-information-object)
-  - [Receive live uplink packets from end-device](#receive-live-uplink-packets-from-end-device)
-  - [Receive live uplink packets from application](#receive-live-uplink-packets-from-application)
+  - [Receive real-time uplink packets from end-device](#receive-real-time-uplink-packets-from-end-device)
+  - [Receive real-time uplink packets from application](#receive-real-time-uplink-packets-from-application)
   - [Retrieve historical uplink packets by end-device and time range](#retrieve-historical-uplink-packets-by-end-device-and-time-range)
   - [Retrieve historical uplink packets by application and time range](#retrieve-historical-uplink-packets-by-application-and-time-range)
 - [Downlink Packets](#downlink-packets)
@@ -20,7 +20,7 @@
 
 Netemera LoRaWAN Application Data API V3 is an HTTPS-based interface that enables programmatic communication with commissioned end-devices organized into applications.
 
-A client can subscribe to receive live uplink packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send downlink packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Additional RESTful endpoints allow for retrieval of historical communications.
+A client can subscribe to receive real-time uplink packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send downlink packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Additional RESTful endpoints allow for retrieval of historical communications.
 
 The API is available at the following base URL: https://APPLICATION_SERVER_HOST/api/v3. Requests and response bodies are formatted in [JSON](https://www.json.org/) and the [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol is used for authorization.
 
@@ -88,7 +88,7 @@ curl \
 
 #### Sample response
 
-HTTP
+HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -132,7 +132,7 @@ Attribute|Type|Optional|Description
 `rssi`|number|false|The RSSI
 `snr`|number|false|The SNR
 
-### Receive live uplink packets from end-device
+### Receive real-time uplink packets from end-device
 
 GET /api/v3/uplink-packets/end-devices/{dev_eui}
 
@@ -183,7 +183,7 @@ curl \
 
 #### Sample response
 
-HTTP
+HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -231,7 +231,7 @@ data:{
 id:AAABWByxB+U=
 ```
 
-### Receive live uplink packets from application
+### Receive real-time uplink packets from application
 
 GET /api/v3/uplink-packets/applications/{app_id}
 
@@ -282,7 +282,7 @@ curl \
 
 #### Sample response
 
-HTTP
+HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -379,7 +379,7 @@ curl
 
 #### Sample response
 
-HTTP
+HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -452,7 +452,7 @@ curl
 
 #### Sample response
 
-HTTP
+HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -542,7 +542,7 @@ curl \
 
 #### Sample response
 
-HTTP
+HTTP:
 
 ```http
 HTTP/1.1 201
