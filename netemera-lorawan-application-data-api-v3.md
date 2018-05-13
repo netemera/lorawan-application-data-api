@@ -20,11 +20,11 @@
 
 Netemera LoRaWAN Application Data API V3 is an HTTPS-based interface that enables programmatic communication with commissioned end-devices organized into applications.
 
-A client can subscribe to receive live packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Other endpoints allow for retrieval of historical communications.
+A client can receive live uplink packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send downlink packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Other endpoints allow for retrieval of historical communications.
 
 The API is available at the following base URL: https://APPLICATION_SERVER_HOST/api/v3. Requests and response bodies are formatted in [JSON](https://www.json.org/) and the [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol is used for authorization.
 
-> **Important:** You cannot run any of the sample requests in this guide as-is. Replace call-specific parameters such as host names, tokens, IDs, and secrets with your own values.
+> **IMPORTANT:** You cannot run any of the sample requests in this guide as-is. Replace call-specific parameters such as host names, tokens, IDs, and secrets with your own values.
 
 ## Authorization
 
