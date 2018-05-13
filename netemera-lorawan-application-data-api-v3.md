@@ -519,6 +519,12 @@ POST /api/v3/downlink-packets/end-devices/{dev_eui}
 
 Sends a downlink packet to the given end-device. The packet will be queued by the network and sent to the end-device in its first available receive time window.
 
+#### Request parameters
+
+Parameter|Type|Optional|Description
+---|---|---|---
+`dev_eui`|string|false|The EUI-64 identifier of the end-device
+
 #### Request headers
 
 Header|Optional|Description
