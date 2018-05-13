@@ -20,17 +20,17 @@
 
 Netemera LoRaWAN Application Data API V3 is an HTTPS-based interface that enables programmatic communication with commissioned end-devices organized into applications.
 
-A client can subscribe to receive real-time uplink packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send downlink packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Additional RESTful endpoints allow for retrieval of historical communications.
+A client can subscribe to receive real-time packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Other endpoints allow for retrieval of historical communications kept for the configured RETENTION_PERIOD.
 
 The API is available at the following base URL: https://APPLICATION_SERVER_HOST/api/v3. Requests and response bodies are formatted in [JSON](https://www.json.org/) and the [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol is used for authorization.
 
-> **Important:** You cannot run any of the sample requests in this guide as-is. Replace call-specific parameters such as host names, tokens and IDs with your own values.
+> **Important:** You cannot run any of the sample requests in this guide as-is. Replace call-specific parameters such as host names, tokens, IDs, and secrets with your own values.
 
 ## Authorization
 
 All API calls must include an OAuth 2.0 access token that authorizes a client.
 
-To get a token, the client must [send a request](#retrieve-access-token) to Authorization Server and authenticate itself with a client ID and secret. Successful response contains an access token valid for 24h. A new request can be made at any time.
+To get a token, the client must [send a request](#retrieve-access-token) to Authorization Server and authenticate itself with a it's own client ID and secret. Successful response contains an access token valid for 24h. A new token request can be made at any time.
 
 The client must include the received access token in each API call, either as the `Authorization` HTTP header (recommended):
 
@@ -49,23 +49,23 @@ POST https://AUTHORIZATION_SERVER_HOST/api/v1/oauth2/token?grant_type={grant_typ
 Parameter|Type|Optional|Description
 ---|---|---|---
 `grant_type`|string|false|The grant type. Must equal "client_credentials"
-`audience`|string|false|The target API's URL the access token should be generated for. Must equal "https://APPLICATION_SERVER_HOST/api/v3"
+`audience`|string|false|The target API's URL the access token will be generated for. Must equal "https://APPLICATION_SERVER_HOST/api/v3"
 
 #### Request headers
 
 Header|Optional|Description
 ---|---|---
-`Authorization: Basic {token}`|false|The `token` parameter is a base64-encoding of the following string "CLIENT_ID:CLIENT_SECRET" where client ID and secret are user name and password assigned to the client
+`Authorization: Basic {token}`|false|The `token` parameter is a base64-encoding of the following string "CLIENT_ID:CLIENT_SECRET" where client ID and secret are user name and password given to the client
 
 #### Response body
 
 An object with the following attributes:
 
-Field|Type|Description
+Field|Type|Optional|Description
 ---|---|---
-`access_token`|string|The access token
-`token_type`|string|The type of the token
-`expires_in`|string|The validity time of the token in seconds
+`access_token`|string|false|The access token
+`token_type`|string|false|The type of the token
+`expires_in`|string|false|The validity time of the token in seconds
 
 #### Sample request
 
@@ -105,26 +105,28 @@ Pragma: no-cache
 
 ## Uplink Packets
 
+Uplink packets are sent by commissioned end-devices.
+
 ### Uplink Packet object
 
 An Uplink Packet object has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`dev_eui`|string|false|The EUI-64 identifier of the end-device in hex
-`recv_time`|string|false|The timestamp of packet reception in ISO 8601 format (UTC)
+`dev_eui`|string|false|The EUI-64 identifier of the end-device
+`recv_time`|string|false|The UTC timestamp of packet reception in ISO 8601 format
 `f_port`|integer|true|The port in the range from 1 to 223
 `f_cnt_up`|integer|false|The uplink frame counter
-`ack`|boolean|false|The acknowledgment of the last downlink packet
-`adr`|boolean|false|The ADR-enabled flag
-`data_rate`|integer|false|The data rate
-`ul_freq`|number|false|The frequency in Mhz
-`gw_info`|[[Gateway Information](#gateway-information-object)]|true|An optional array of Gateway Information objects (in descending order by RSSI)
+`ack`|boolean|false|The acknowledgment of the last downlink packet (if any)
+`adr`|boolean|false|The ADR flag. Positive value indicates that the end-device is respecting ADR MAC commands sent by Network Server
+`data_rate`|integer|false|The data rate in the range from 0 to 7
+`ul_freq`|number|false|The radio frequency in Mhz
+`gw_info`|[[Gateway Information](#gateway-information-object)]|true|An array of information objects about the gateways that received the packet. Sorted in descending order by RSSI. An uplink packet can be received by multiple gateways serving the area
 `frm_payload`|string|true|An optional payload in hex
 
 #### Gateway Information object
 
-A Gateway Information object has the following attributes:
+A Gateway Information object contains radio metadata from a gateway that received the packet and has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
@@ -136,27 +138,30 @@ Attribute|Type|Optional|Description
 
 GET /api/v3/uplink-packets/end-devices/{dev_eui}
 
+Opens an SSE stream of [Uplink Packet objects](#uplink-packet-object) coming from the end-device identified by `dev_eui`. Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to receive packets from a given point in the stream.
+
 #### Request parameters
 
 Parameter|Type|Optional|Description
 ---|---|---|---
-`dev_eui`|string|false|The EUI-64 identifier of the end-device in hex
+`dev_eui`|string|false|The EUI-64 identifier of the end-device
 
 #### Request headers
 
-Header|Optional
----|---
-`Accept: text/event-stream`|false
-`Last-Event-ID: {id}`|true
-`Cache-Control: no-cache`|false
+Header|Optional|Description
+---|---|---
+`Accept: text/event-stream`|false|Accept an SSE stream
+`Last-Event-ID: {id}`|true|Receive packets from the point in the stream given by the `id` parameter
+`Cache-Control: no-cache`|false|Disable caching
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A SSE stream of [Uplink Packet objects](#uplink-packet-object) with intermittent empty keep-alive messages|
-`401 Unauthorized`|Empty|Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
-`405 Forbidden`|Empty|Missing permissions
+`200 OK`|An SSE stream of [Uplink Packet objects](#uplink-packet-object) with event IDs. Empty keep-alive messages are sent in case of no traffic|
+`400 Bad Request`||Request validation failed
+`401 Unauthorized`||Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
+`405 Forbidden`||Missing permissions
 
 #### Sample request
 
@@ -167,6 +172,7 @@ GET /api/v3/uplink-packets/end-devices/DEV_EUI HTTP/1.1
 Host: APPLICATION_SERVER_HOST
 Authorization: Bearer ACCESS_TOKEN
 Accept: text/event-stream
+Last-Event-ID: LAST_EVENT_ID
 Cache-Control: no-cache
 ```
 
@@ -178,6 +184,7 @@ curl \
   --url 'https://APPLICATION_SERVER_HOST/api/v3/uplink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
+  --header 'Last-Event-ID: LAST_EVENT_ID' \
   --header 'Cache-Control: no-cache'
 ```
 
@@ -235,6 +242,8 @@ id:AAABWByxB+U=
 
 GET /api/v3/uplink-packets/applications/{app_id}
 
+Opens an SSE stream of [Uplink Packet objects](#uplink-packet-object) coming from all end-devices belonging to an application identified by `app_id`. Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to receive packets from a given point in the stream. Packet order is maintained for each device (no total order within an application).
+
 #### Request parameters
 
 Parameter|Type|Optional|Description
@@ -243,19 +252,20 @@ Parameter|Type|Optional|Description
 
 #### Request headers
 
-Header|Optional
----|---
-`Accept: text/event-stream`|false
-`Last-Event-ID: {id}`|true
-`Cache-Control: no-cache`|false
+Header|Optional|Description
+---|---|---
+`Accept: text/event-stream`|false|Accept an SSE stream
+`Last-Event-ID: {id}`|true|Receive packets from the point in the stream given by the `id` parameter
+`Cache-Control: no-cache`|false|Disable caching
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A SSE stream of [Uplink Packet objects](#uplink-packet-object) with intermittent empty keep-alive messages|
-`401 Unauthorized`|Empty|Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
-`405 Forbidden`|Empty|Missing permissions
+`200 OK`|An SSE stream of [Uplink Packet objects](#uplink-packet-object) with event IDs. Empty keep-alive messages are sent in case of no traffic|
+`400 Bad Request`||Request validation failed
+`401 Unauthorized`||Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
+`405 Forbidden`||Missing permissions
 
 #### Sample request
 
@@ -266,6 +276,7 @@ GET /api/v3/uplink-packets/applications/APP_ID HTTP/1.1
 Host: APPLICATION_SERVER_HOST
 Authorization: Bearer ACCESS_TOKEN
 Accept: text/event-stream
+Last-Event-ID: LAST_EVENT_ID
 Cache-Control: no-cache
 ```
 
@@ -277,6 +288,7 @@ curl \
   --url 'https://APPLICATION_SERVER_HOST/api/v3/uplink-packets/applications/APP_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
+  --header 'Last-Event-ID: LAST_EVENT_ID' \
   --header 'Cache-Control: no-cache'
 ```
 
