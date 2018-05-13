@@ -97,7 +97,7 @@ Pragma: no-cache
 
 ### Delete queued downlink packets
 
-POST /api/v1/queued-downlink-packets/end-devices/{dev_eui}
+DELETE /api/v1/queued-downlink-packets/end-devices/{dev_eui}
 
 Deletes all queued packets for the given end-device.
 
@@ -120,7 +120,7 @@ Status|Body|Description
 HTTP:
 
 ```http
-POST /api/v1/queued-downlink-packets/end-devices/DEV_EUI HTTP/1.1
+DELETE /api/v1/queued-downlink-packets/end-devices/DEV_EUI HTTP/1.1
 Host: NETWORK_SERVER_HOST
 Authorization: Bearer ACCESS_TOKEN
 ```
@@ -129,7 +129,7 @@ Shell:
 
 ```shell
 curl \
-  --request POST \
+  --request DELETE \
   --url 'https://NETWORK_SERVER_HOST/api/v1/queued-downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN'
 ```
