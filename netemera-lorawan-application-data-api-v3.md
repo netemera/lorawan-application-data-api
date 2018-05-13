@@ -8,8 +8,8 @@
 - [Uplink Packets](#uplink-packets)
   - [Uplink Packet object](#uplink-packet-object)
     - [Gateway Information object](#gateway-information-object)
-  - [Receive real-time uplink packets from end-device](#receive-real-time-uplink-packets-from-end-device)
-  - [Receive real-time uplink packets from application](#receive-real-time-uplink-packets-from-application)
+  - [Receive live uplink packets from end-device](#receive-live-uplink-packets-from-end-device)
+  - [Receive live uplink packets from application](#receive-live-uplink-packets-from-application)
   - [Retrieve historical uplink packets by end-device and time range](#retrieve-historical-uplink-packets-by-end-device-and-time-range)
   - [Retrieve historical uplink packets by application and time range](#retrieve-historical-uplink-packets-by-application-and-time-range)
 - [Downlink Packets](#downlink-packets)
@@ -20,7 +20,7 @@
 
 Netemera LoRaWAN Application Data API V3 is an HTTPS-based interface that enables programmatic communication with commissioned end-devices organized into applications.
 
-A client can subscribe to receive real-time packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Other endpoints allow for retrieval of historical communications kept for the configured RETENTION_PERIOD.
+A client can subscribe to receive live packets via SSE ([Server Sent Events](https://www.w3.org/TR/eventsource/)) and send packets via a [RESTful](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) endpoint. Other endpoints allow for retrieval of historical communications.
 
 The API is available at the following base URL: https://APPLICATION_SERVER_HOST/api/v3. Requests and response bodies are formatted in [JSON](https://www.json.org/) and the [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol is used for authorization.
 
@@ -30,7 +30,7 @@ The API is available at the following base URL: https://APPLICATION_SERVER_HOST/
 
 All API calls must include an OAuth 2.0 access token that authorizes a client.
 
-To get a token, the client must [send a request](#retrieve-access-token) to Authorization Server and authenticate itself with a it's own client ID and secret. Successful response contains an access token valid for 24h. A new token request can be made at any time.
+To get a token, the client must [send a request](#retrieve-access-token) to Authorization Server and authenticate itself with its own client ID and secret. Successful response contains an access token valid for 24h. A new token request can be made at any time.
 
 The client must include the received access token in each API call, either as the `Authorization` HTTP header (recommended):
 
@@ -134,11 +134,13 @@ Attribute|Type|Optional|Description
 `rssi`|number|false|The RSSI
 `snr`|number|false|The SNR
 
-### Receive real-time uplink packets from end-device
+### Receive live uplink packets from end-device
 
 GET /api/v3/uplink-packets/end-devices/{dev_eui}
 
-Opens an SSE stream of [Uplink Packet objects](#uplink-packet-object) coming from the end-device identified by `dev_eui`. Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to receive packets from a given point in the stream.
+Opens a live SSE stream of uplink packets received by the network from the given end-device.
+
+Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to avoid packet losses by the client. Packet order is maintained.
 
 #### Request parameters
 
@@ -238,11 +240,13 @@ data:{
 id:AAABWByxB+U=
 ```
 
-### Receive real-time uplink packets from application
+### Receive live uplink packets from application
 
 GET /api/v3/uplink-packets/applications/{app_id}
 
-Opens an SSE stream of [Uplink Packet objects](#uplink-packet-object) coming from all end-devices belonging to an application identified by `app_id`. Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to receive packets from a given point in the stream. Packet order is maintained for each device (no total order within an application).
+Opens a live SSE stream of uplink packets received by the network from all end-devices belonging to the given application.
+
+Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to avoid packet losses by the client. Packet order is maintained for each device (no total order within an application).
 
 #### Request parameters
 
@@ -346,27 +350,30 @@ id:AAABWByxB+U=
 
 GET /api/v3/uplink-packets/end-devices/{dev_eui}?from_time={from_time}&until_time={until_time}
 
+Retrieves a list of uplink packets received by the network in the given time range from the given end-device.
+
 #### Request parameters
 
 Parameter|Type|Optional|Description
 ---|---|---|---
-`dev_eui`|string|false|The EUI-64 identifier of the end-device in hex
-`from_time`|string|false|The beginning of the timestamp range (inclusive) in ISO 8601 format (UTC)
-`until_time`|string|true|The end of the timestamp range (exclusive) in ISO 8601 format (UTC). Defaults to current timestamp
+`dev_eui`|string|false|The EUI-64 identifier of the end-device
+`from_time`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
+`until_time`|string|true|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive). Defaults to current timestamp
 
 #### Request headers
 
-Header|Optional
----|---
-`Accept: application/json`|true
+Header|Optional|Description
+---|---|---
+`Accept: application/json`|true|
 
 #### Response
 
 Status|Body|Description
 ---|---|---
 `200 OK`|An array of [Uplink Packet](#uplink-packet) objects|
-`401 Unauthorized`|Empty|Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
-`405 Forbidden`|Empty|Missing permissions
+`400 Bad Request`||Request validation failed
+`401 Unauthorized`||Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
+`405 Forbidden`||Missing permissions
 
 #### Sample request
 
@@ -419,27 +426,30 @@ Content-Type: application/json
 
 GET /api/v3/uplink-packets/applications/{app_id}?from_time={from_time}&until_time={until_time}
 
+Retrieves a list of uplink packets received by the network in the given time range from all devices belonging to the given application.
+
 #### Request parameters
 
 Parameter|Type|Optional|Description
 ---|---|---|---
 `app_id`|string|false|The identifier of the application
-`from_time`|string|false|The beginning of the timestamp range (inclusive) in ISO 8601 format (UTC)
-`until_time`|string|true|The end of the timestamp range (exclusive) in ISO 8601 format (UTC). Defaults to current timestamp
+`from_time`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
+`until_time`|string|true|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive). Defaults to current timestamp
 
 #### Request headers
 
-Header|Optional
----|---
-`Accept: application/json`|true
+Header|Optional|Description
+---|---|---
+`Accept: application/json`|true|
 
 #### Response
 
 Status|Body|Description
 ---|---|---
 `200 OK`|An array of [Uplink Packet](#uplink-packet) objects|
-`401 Unauthorized`|Empty|Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
-`405 Forbidden`|Empty|Missing permissions
+`400 Bad Request`||Request validation failed
+`401 Unauthorized`||Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
+`405 Forbidden`||Missing permissions
 
 #### Sample request
 
@@ -490,26 +500,30 @@ Content-Type: application/json
 
 ## Downlink Packets
 
+Downlink packets are sent by a client to end-devices.
+
 ### Downlink Packet object
 
 A Downlink Packet object has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`dev_eui`|string|false|The EUI-64 identifier of the end-device in hex
-`f_port`|integer|true|The port in range from 1 to 223
-`confirmed`|boolean|false|Require confirmation from the end-device
+`dev_eui`|string|false|The EUI-64 identifier of the end-device
+`f_port`|integer|true|The port in the range from 1 to 223
+`confirmed`|boolean|false|Require packet reception confirmation from the end-device
 `frm_payload`|string|true|The payload in hex
 
 ### Send downlink packets to end-device
 
 POST /api/v3/downlink-packets/end-devices/{dev_eui}
 
+Sends a downlink packet to the given end-device. The packet will be queued by the network and sent to the end-device in its first available receive time window.
+
 #### Request headers
 
-Header|Optional
----|---
-`Accept: application/json`|false
+Header|Optional|Description
+---|---|---
+`Accept: application/json`|false|
 
 #### Request body
 
@@ -519,9 +533,10 @@ A [Downlink Packet](#downlink-packet-object) object.
 
 Status|Body|Description
 ---|---|---
-`202 Accepted`|Empty|The packet has been submitted
-`401 Unauthorized`|Empty|Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
-`405 Forbidden`|Empty|Missing permissions
+`202 Accepted`||The packet has been submitted
+`401 Bad Request`||Request validation failed
+`401 Unauthorized`||Missing or invalid access token. Please [retrieve a new access token](#retrieve-access-token)
+`405 Forbidden`||Missing permissions
 
 #### Sample request
 
