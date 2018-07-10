@@ -62,7 +62,7 @@ Header|Optional|Description
 An object with the following attributes:
 
 Field|Type|Optional|Description
----|---|---
+---|---|---|---
 `access_token`|string|false|The access token
 `token_type`|string|false|The type of the token
 `expires_in`|string|false|The validity time of the token in seconds
