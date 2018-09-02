@@ -242,7 +242,7 @@ id:AAABWByxB+U=
 
 ### Receive live uplink packets from application
 
-GET /api/v3/uplink-packets/applications/{app_id}
+GET /api/v3/uplink-packets/applications/{application_id}
 
 Opens a live SSE stream of uplink packets received by the network from all end-devices belonging to the given application.
 
@@ -252,7 +252,7 @@ Supports [reconnections using the last received event ID](https://www.w3.org/TR/
 
 Parameter|Type|Optional|Description
 ---|---|---|---
-`app_id`|string|false|The identifier of an application
+`application_id`|string|false|The identifier of an application
 
 #### Request headers
 
@@ -276,7 +276,7 @@ Status|Body|Description
 HTTP:
 
 ```http
-GET /api/v3/uplink-packets/applications/APP_ID HTTP/1.1
+GET /api/v3/uplink-packets/applications/application_id HTTP/1.1
 Host: APPLICATION_SERVER_HOST
 Authorization: Bearer ACCESS_TOKEN
 Accept: text/event-stream
@@ -289,7 +289,7 @@ Shell:
 ```shell
 curl \
   --request GET \
-  --url 'https://APPLICATION_SERVER_HOST/api/v3/uplink-packets/applications/APP_ID' \
+  --url 'https://APPLICATION_SERVER_HOST/api/v3/uplink-packets/applications/application_id' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
   --header 'Last-Event-ID: LAST_EVENT_ID' \
@@ -424,7 +424,7 @@ Content-Type: application/json
 
 ### Retrieve historical uplink packets by application and time range
 
-GET /api/v3/uplink-packets/applications/{app_id}?from_time={from_time}&until_time={until_time}
+GET /api/v3/uplink-packets/applications/{application_id}?from_time={from_time}&until_time={until_time}
 
 Retrieves a list of uplink packets received by the network in the given time range from all devices belonging to the given application.
 
@@ -432,7 +432,7 @@ Retrieves a list of uplink packets received by the network in the given time ran
 
 Parameter|Type|Optional|Description
 ---|---|---|---
-`app_id`|string|false|The identifier of the application
+`application_id`|string|false|The identifier of the application
 `from_time`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
 `until_time`|string|true|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive). Defaults to current timestamp
 
@@ -456,7 +456,7 @@ Status|Body|Description
 HTTP:
 
 ```http
-GET /api/v3/uplink-packets/applications/APP_ID?from_time=2016-10-31T21:41:51.765598114Z&until_time=2016-10-31T22:32:09.000000000Z HTTP/1.1
+GET /api/v3/uplink-packets/applications/application_id?from_time=2016-10-31T21:41:51.765598114Z&until_time=2016-10-31T22:32:09.000000000Z HTTP/1.1
 Host: APPLICATION_SERVER_HOST
 Authorization: Bearer ACCESS_TOKEN
 Accept: application/json
@@ -467,7 +467,7 @@ Shell:
 ```shell
 curl
   --request GET \
-  --url 'https://APPLICATION_SERVER_HOST/api/v3/uplink-packets/applications/APP_ID?from_time=2016-10-31T21:41:51.765598114Z&until_time=2016-10-31T22:32:09.000000000Z' \
+  --url 'https://APPLICATION_SERVER_HOST/api/v3/uplink-packets/applications/application_id?from_time=2016-10-31T21:41:51.765598114Z&until_time=2016-10-31T22:32:09.000000000Z' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
