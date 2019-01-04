@@ -113,18 +113,6 @@ Field|Type|Optional|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-POST /api/v1/oauth2/token HTTP/1.1
-Host: authorization.netemera.com
-Authorization: Basic TOKEN
-
-grant_type=client_credentials&audience=https://application.lorawan.netemera.com/api/v4
-```
-
-Shell:
-
 ```shell
 curl \
   --request POST \
@@ -134,8 +122,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -191,16 +177,6 @@ Field|Type|Optional|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v1/oauth2/authorization?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPE&state=STATE&audience=https://application.lorawan.netemera.com/api/v4 HTTP/1.1
-Host: authorization.netemera.com
-Authorization: Basic TOKEN
-```
-
-Shell:
-
 ```shell
 curl \
   --request GET \
@@ -209,8 +185,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 302 Found
@@ -253,18 +227,6 @@ Field|Type|Optional|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-POST /api/v1/oauth2/token HTTP/1.1
-Host: authorization.netemera.com
-Authorization: Basic TOKEN
-
-grant_type=authorization_code&code=AUTHORIZATION_CODE
-```
-
-Shell:
-
 ```shell
 curl \
   --request POST \
@@ -274,8 +236,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -325,18 +285,6 @@ Field|Type|Optional|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-POST /api/v1/oauth2/token HTTP/1.1
-Host: authorization.netemera.com
-Authorization: Basic TOKEN
-
-grant_type=refresh_token&refresh_token=REFRESH_TOKEN
-```
-
-Shell:
-
 ```shell
 curl \
   --request POST \
@@ -346,8 +294,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -401,17 +347,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v4/applications
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: application/json
-```
-
-Shell:
-
 ```shell
 curl
   --request GET \
@@ -421,8 +356,6 @@ curl
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -471,17 +404,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v4/applications/APPLICATION_ID
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: application/json
-```
-
-Shell:
-
 ```shell
 curl
   --request GET \
@@ -491,8 +413,6 @@ curl
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -539,26 +459,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-POST /api/v4/applications HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "application",
-    "attributes": {
-      "name": "test"
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request POST \
@@ -569,8 +469,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -623,28 +521,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-PATCH /api/v4/applications/APPLICATION_ID HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "application",
-    "id": "APPLICATION_ID",
-    "attributes": {
-      "applicationId": "APPLICATION_ID",
-      "name": "test"
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request PATCH \
@@ -655,8 +531,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -706,17 +580,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-DELETE /api/v4/applications/APPLICATION_ID HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-```
-
-Shell:
-
 ```shell
 curl \
   --request DELETE \
@@ -726,8 +589,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 204 No Content
@@ -789,17 +650,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v4/device-profiles
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: application/json
-```
-
-Shell:
-
 ```shell
 curl
   --request GET \
@@ -809,8 +659,6 @@ curl
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -877,17 +725,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v4/device-profiles/DEVICE_PROFILE_ID
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: application/json
-```
-
-Shell:
-
 ```shell
 curl
   --request GET \
@@ -897,8 +734,6 @@ curl
 ```
 
 #### Sample response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -963,44 +798,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-POST /api/v4/device-profiles HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "device-profile",
-    "attributes": {
-      "name": "test",
-      "supportsClassB": true,
-      "classBTimeout": 1,
-      "pingSlotPeriod": 1,
-      "pingSlotFrequency": 868.60,
-      "supportsClassC": true,
-      "classCTimeout": 1,
-      "macVersion": "LW11",
-      "regParamsRevision": "RP11B",
-      "supportsJoin": true,
-      "rxDelay1": 1,
-      "rxDrOffset1": 1,
-      "rxDataRate2": 250,
-      "rxFreq2": 868.10,
-      "factoryPresetFreqs": [868.10, 868.30, 868.50],
-      "maxEirp": 14,
-      "maxDutyCycle": 0.1,
-      "rfRegion": "EU868",
-      "supports32BitFCnt": null
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request POST \
@@ -1011,8 +808,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -1083,46 +878,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-PATCH /api/v4/device-profiles/DEVICE_PROFILE_ID HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "device-profile",
-    "id": "DEVICE_PROFILE_ID"
-    "attributes": {
-      "deviceProfileId": "DEVICE_PROFILE_ID",
-      "name": "test",
-      "supportsClassB": true,
-      "classBTimeout": 1,
-      "pingSlotPeriod": 1,
-      "pingSlotFrequency": 868.60,
-      "supportsClassC": true,
-      "classCTimeout": 1,
-      "macVersion": "LW11",
-      "regParamsRevision": "RP11B",
-      "supportsJoin": true,
-      "rxDelay1": 1,
-      "rxDrOffset1": 1,
-      "rxDataRate2": 250,
-      "rxFreq2": 868.10,
-      "factoryPresetFreqs": [868.10, 868.30, 868.50],
-      "maxEirp": 14,
-      "maxDutyCycle": 0.1,
-      "rfRegion": "EU868",
-      "supports32BitFCnt": null
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request PATCH \
@@ -1133,8 +888,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -1202,17 +955,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-DELETE /api/v4/device-profiles/DEVICE_PROFILE_ID HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-```
-
-Shell:
-
 ```shell
 curl \
   --request DELETE \
@@ -1222,8 +964,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 204 No Content
@@ -1275,17 +1015,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v4/applications/APPLICATION_ID/end-devices
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: application/json
-```
-
-Shell:
-
 ```shell
 curl
   --request GET \
@@ -1295,8 +1024,6 @@ curl
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -1349,17 +1076,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v4/end-devices/DEV_EUI
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: application/json
-```
-
-Shell:
-
 ```shell
 curl
   --request GET \
@@ -1369,8 +1085,6 @@ curl
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -1427,32 +1141,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-POST /api/v4/applications/APPLICATION_ID/end-devices/DEV_EUI HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "end-device",
-    "id": "DEV_EUI",
-    "attributes": {
-      "devEui": "DEV_EUI",
-      "name": "test",
-      "applicationId": "APPLICATION_ID",
-      "deviceProfileId": "DEVICE_PROFILE_ID",
-      "nwkKey": "000000000000000000000000000000000000",
-      "appKey": "000000000000000000000000000000000000"
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request POST \
@@ -1463,8 +1151,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -1505,32 +1191,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-PATCH /api/v4/end-devices/DEV_EUI HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "end-device",
-    "id": "DEV_EUI",
-    "attributes": {
-      "devEui": "DEV_EUI",
-      "name": "test",
-      "applicationId": "APPLICATION_ID",
-      "deviceProfileId": "DEVICE_PROFILE_ID",
-      "nwkKey": "000000000000000000000000000000000000",
-      "appKey": "000000000000000000000000000000000000"
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request PATCH \
@@ -1541,8 +1201,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -1580,17 +1238,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-DELETE /api/v4/end-devices/DEV_EUI HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-```
-
-Shell:
-
 ```shell
 curl \
   --request DELETE \
@@ -1600,8 +1247,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 204 No Content
@@ -1656,17 +1301,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-GET /api/v4/end-devices/DEV_EUI/activation
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: application/json
-```
-
-Shell:
-
 ```shell
 curl
   --request GET \
@@ -1676,8 +1310,6 @@ curl
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -1737,35 +1369,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-POST /api/v4/end-devices/DEV_EUI/activation HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "activation",
-    "id": "DEV_EUI",
-    "attributes": {
-      "devEui": "DEV_EUI",
-      "devAddr": "0000000",
-      "aFCntDown": 0,
-      "appSKey": "00000000000000000000000000000000",
-      "fCntUp": 0,
-      "fNwkSIntKey": "00000000000000000000000000000000",
-      "nFCntDown": 0,
-      "nwkSEncKey": "00000000000000000000000000000000",
-      "sNwkSIntKey": "00000000000000000000000000000000"
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request POST \
@@ -1776,8 +1379,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -1818,35 +1419,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-PATCH /api/v4/end-devices/DEV_EUI/activation HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "activation",
-    "id": "DEV_EUI",
-    "attributes": {
-      "devEui": "DEV_EUI",
-      "devAddr": "0000000",
-      "aFCntDown": 0,
-      "appSKey": "00000000000000000000000000000000",
-      "fCntUp": 0,
-      "fNwkSIntKey": "00000000000000000000000000000000",
-      "nFCntDown": 0,
-      "nwkSEncKey": "00000000000000000000000000000000",
-      "sNwkSIntKey": "00000000000000000000000000000000"
-     }
-  }
-}
-```
-
-Shell:
-
 ```shell
 curl \
   --request PATCH \
@@ -1857,8 +1429,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 201 Created
@@ -1896,17 +1466,6 @@ Status|Body|Description
 
 #### Sample Request
 
-HTTP:
-
-```http
-DELETE /api/v4/end-devices/DEV_EUI/activation HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-```
-
-Shell:
-
 ```shell
 curl \
   --request DELETE \
@@ -1916,8 +1475,6 @@ curl \
 ```
 
 #### Sample Response
-
-HTTP:
 
 ```http
 HTTP/1.1 204 No Content
@@ -1993,19 +1550,6 @@ Status|Body|Description
 
 #### Sample request
 
-HTTP:
-
-```http
-GET /api/v4/uplink-packets/end-devices/DEV_EUI HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: text/event-stream
-Last-Event-ID: LAST_EVENT_ID
-Cache-Control: no-cache
-```
-
-Shell:
-
 ```shell
 curl \
   --request GET \
@@ -2017,8 +1561,6 @@ curl \
 ```
 
 #### Sample response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -2105,19 +1647,6 @@ Status|Body|Description
 
 #### Sample request
 
-HTTP:
-
-```http
-GET /api/v4/uplink-packets/applications/APPLICATION_ID HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Accept: text/event-stream
-Last-Event-ID: LAST_EVENT_ID
-Cache-Control: no-cache
-```
-
-Shell:
-
 ```shell
 curl \
   --request GET \
@@ -2129,8 +1658,6 @@ curl \
 ```
 
 #### Sample response
-
-HTTP:
 
 ```http
 HTTP/1.1 200 OK
@@ -2227,29 +1754,6 @@ Status|Body|Description
 `405 Forbidden`||Missing permissions
 
 #### Sample Request
-
-HTTP:
-
-```http
-POST /api/v4/downlink-packets/end-devices/DEV_EUI HTTP/1.1
-Host: application.lorawan.netemera.com
-Authorization: Bearer ACCESS_TOKEN
-Content-Type: application/json
-
-{
-  "data": {
-    "type": "downlink-packet",
-    "attributes": {
-      "devEui": "DEV_EUI",
-      "fPort": 2,
-      "confirmed": false,
-      "frmPayload": "0000"
-    }
-  }
-}
-```
-
-Shell:
 
 ```shell
 curl \
