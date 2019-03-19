@@ -1517,19 +1517,19 @@ Opens a SSE stream of uplink packets received by the network from the given end 
 
 Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to avoid packet loss by the client. Packet order is maintained.
 
-The endpoint enables retrieving packets received in a given historical time range by specifying `filter[from_time]` and `filter[until_time]`.
+The endpoint enables retrieving packets received in a given historical time range by specifying `filter[since]` and `filter[until]`.
 
 #### Request Definition
 
-GET /api/v4/uplink-packets/end-devices/{dev_eui}?filter[from_time]={from_time}&filter[until_time]={until_time}
+GET /api/v4/uplink-packets/end-devices/{dev_eui}?filter[since]={since}&filter[until]={until}
 
 #### Request Parameters
 
 Parameter|Type|Required|Description
 ---|---|---|---
 `dev_eui`|string|true|The EUI-64 identifier of the end device
-`filter[from_time]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
-`filter[until_time]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
+`filter[since]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
+`filter[until]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
 
 #### Request Headers
 
@@ -1614,19 +1614,19 @@ Opens a SSE stream of uplink packets received by the network from all end device
 
 Supports [reconnections using the last received event ID](https://www.w3.org/TR/eventsource/#processing-model) to avoid packet losses by the client. Packet order is maintained for each device (no total order within an application).
 
-The endpoint enables retrieving packets received in a given historical time range by specifying `filter[from_time]` and `filter[until_time]`.
+The endpoint enables retrieving packets received in a given historical time range by specifying `filter[since]` and `filter[until]`.
 
 #### Request Definition
 
-GET /api/v4/uplink-packets/applications/{application_id}?filter[from_time]={from_time}&filter[until_time]={until_time}
+GET /api/v4/uplink-packets/applications/{application_id}?filter[since]={since}&filter[until]={until}
 
 #### Request Parameters
 
 Parameter|Type|Required|Description
 ---|---|---|---
 `application_id`|string|true|The identifier of an application
-`filter[from_time]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
-`filter[until_time]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
+`filter[since]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
+`filter[until]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
 
 #### Request Headers
 
@@ -1742,7 +1742,7 @@ Header|Required|Description
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Dwonlink Packet](#downlink-packet) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Downlink Packet](#downlink-packet) object.
 
 #### Response
 
@@ -1761,7 +1761,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"downlink-packet":,"attributes":{"devEui": "DEV_EUI","fPort": 2,"confirmed": false,"frmPayload": "0000"}}}'
+  --data '{"data":{"type":"downlink-packet":,"attributes":{"devEui":"DEV_EUI","fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
 ```
 
 #### Sample Response
