@@ -977,7 +977,7 @@ An end-device has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`devEui`|string|false|The EUI identifier
+`devEui`|string|false|The EUI-64
 `name`|string|true|A friendly name
 `applicationId`|string|false|The unique identifier of the [Application](#application)
 `deviceProfileId`|string|false|The unique identifier of the [Device Profile](#device)
@@ -1047,7 +1047,7 @@ Content-Type: application/json
 
 ### Retrieve End-Device
 
-Retrieves the end-device identified by the given EUI.
+Retrieves the end-device identified by the given EUI-64.
 
 #### Request Definition
 
@@ -1057,7 +1057,7 @@ GET /api/v4/end-devices/{dev_eui}
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI of the end-device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1168,7 +1168,7 @@ PATCH /api/v4/end-devices/{dev_eui}
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI of the end-device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1218,7 +1218,7 @@ DELETE /api/v4/end-devices/{dev_eui}
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI of the end-device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1260,7 +1260,7 @@ An activation has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`devEui`|string|false|The EUI of the end-device
+`devEui`|string|false|The EUI-64 of the end-device
 `devAddr`|string|false|The network address of the end-device
 `aFCntDown`|integer|false|
 `appSKey`|string|false|
@@ -1282,7 +1282,7 @@ GET /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI of the end-device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1346,7 +1346,7 @@ POST /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI of the end-device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1396,7 +1396,7 @@ PATCH /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI of the end-device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1446,7 +1446,7 @@ DELETE /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI of the end-device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1490,7 +1490,7 @@ An uplink packet as the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`devEui`|string|false|The EUI-64 identifier of the end device
+`devEui`|string|false|The EUI-64 of the end-device
 `recvTime`|string|false|The UTC timestamp of packet reception in ISO 8601 format
 `fPort`|integer|true|The port in the range from 1 to 223
 `fCntUp`|integer|false|The uplink frame counter
@@ -1507,7 +1507,7 @@ Gateway information consists of radio metadata from a gateway that received the 
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`id`|string|false|The EUI-64 identifier of the gateway
+`id`|string|false|The ID of the gateway
 `rssi`|number|false|The RSSI
 `snr`|number|false|The SNR
 
@@ -1527,7 +1527,7 @@ GET /api/v4/uplink-packets/end-devices/{dev_eui}?filter[since]={since}&filter[un
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI-64 identifier of the end device
+`dev_eui`|string|true|The EUI-64 of the end-device
 `filter[since]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
 `filter[until]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
 `filter[tail]`|number|false|The number of last rows to retrieve
@@ -1719,14 +1719,14 @@ A Downlink Packet object has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`devEui`|string|false|The EUI-64 identifier of the end device
+`devEui`|string|false|The EUI-64 of the end device
 `fPort`|integer|true|The port in the range from 1 to 223
 `confirmed`|boolean|false|Require packet reception confirmation from the end device
 `frmPayload`|string|true|The payload in hex
 
 ### Send Downlink Packets to End-Device
 
-Sends a downlink packet to the given end device. The packet will be queued by the network and sent to the end device in its first available receive time window.
+Sends a downlink packet to the given end device. The packet will be queued by the network and sent to the end-device in the first available time window.
 
 #### Request Definition
 
@@ -1736,7 +1736,7 @@ POST /api/v4/downlink-packets/end-devices/{dev_eui}
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI-64 identifier of the end device
+`dev_eui`|string|true|The EUI-64 of the end-device
 
 #### Request Headers
 
@@ -1765,7 +1765,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"downlink-packet":,"attributes":{"devEui":"DEV_EUI","fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
+  --data '{"data":{"type":"downlink-packet":,"attributes":{"fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
 ```
 
 #### Sample Response
