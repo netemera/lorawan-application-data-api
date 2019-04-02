@@ -1719,7 +1719,7 @@ A Downlink Packet object has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`devEui`|string|false|The EUI-64 of the end device
+`devEui`|string|true|The EUI-64 of the end device
 `fPort`|integer|true|The port in the range from 1 to 223
 `confirmed`|boolean|false|Require packet reception confirmation from the end device
 `frmPayload`|string|true|The payload in hex
