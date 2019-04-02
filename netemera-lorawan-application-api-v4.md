@@ -11,28 +11,28 @@
   - [Obtain Access Token with Refresh Token](#obtain-access-token-with-refresh-token)
 - [Applications](#applications)
   - [Application](#application)
-  - [Fetch Applications](#fetch-applications)
-  - [Fetch Application](#fetch-application)
+  - [Retrieve Applications](#retrieve-applications)
+  - [Retrieve Application](#retrieve-application)
   - [Create Application](#create-application)
   - [Update Application](#update-application)
   - [Delete Application](#delete-application)
 - [Device Profiles](#device-profiles)
   - [Device Profile](#device-profile)
-  - [Fetch Device Profiles](#fetch-device-profiles)
-  - [Fetch Device Profile](#fetch-device-profile)
+  - [Retrieve Device Profiles](#retrieve-device-profiles)
+  - [Retrieve Device Profile](#retrieve-device-profile)
   - [Create Device Profile](#create-device-profile)
   - [Update Device Profile](#update-device-profile)
   - [Delete Device Profile](#delete-device-profile)
 - [End-Devices](#end-devices)
   - [End-Device](#end-device)
-  - [Fetch Application End-Devices](#fetch-application-end-devices)
-  - [Fetch End-Device](#fetch-end-device)
+  - [Retrieve Application End-Devices](#retrieve-application-end-devices)
+  - [Retrieve End-Device](#retrieve-end-device)
   - [Create Application End-Device](#create-application-end-device)
   - [Update End-Device](#update-end-device)
   - [Delete End-Device](#delete-end-device)
 - [End-Device Activations](#end-device-activations)
   - [End-Device Activation](#end-device-activation)
-  - [Fetch End-Device Activation](#fetch-end-device-activation)
+  - [Retrieve End-Device Activation](#retrieve-end-device-activation)
   - [Create End-Device Activation](#create-end-device-activation)
   - [Update End-Device Activation](#update-end-device-activation)
   - [Delete End-Device Activation](#delete-end-device-activation)
@@ -322,7 +322,7 @@ Attribute|Type|Optional|Description
 `applicationId`|string|false|The unique identifier
 `name`|string|true|A friendly name
 
-### Fetch Applications
+### Retrieve Applications
 
 Retrieves all applications.
 
@@ -373,7 +373,7 @@ Content-Type: application/json
 }
 ```
 
-### Fetch Application
+### Retrieve Application
 
 Retrieves the application identified by the given application ID.
 
@@ -625,7 +625,7 @@ Attribute|Type|Optional|Description
 `rfRegion`|string|false|The RF region name e.g., EU868
 `supports32BitFCnt`|boolean|true|`true` if an end-device supports 32-bit frame counter (mandatory for LoRaWAN 1.0 End-Devices)
 
-### Fetch Device Profiles
+### Retrieve Device Profiles
 
 Retrieves all device profiles.
 
@@ -694,7 +694,7 @@ Content-Type: application/json
 }
 ```
 
-### Fetch Device Profile
+### Retrieve Device Profile
 
 Retrieves the device profile identified by the given device profile ID.
 
@@ -984,7 +984,7 @@ Attribute|Type|Optional|Description
 `nwkKey`|string|true|The network key
 `appKey`|string|true|The application key
 
-### Fetch Application End-Devices
+### Retrieve Application End-Devices
 
 Retrieves application end-devices.
 
@@ -1045,7 +1045,7 @@ Content-Type: application/json
 }
 ```
 
-### Fetch End-Device
+### Retrieve End-Device
 
 Retrieves the end-device identified by the given EUI.
 
@@ -1103,7 +1103,7 @@ Content-Type: application/json
       "appKey": "000000000000000000000000000000000000",
      }
   }
-}s
+}
 ```
 
 ### Create Application End-Device
@@ -1270,7 +1270,7 @@ Attribute|Type|Optional|Description
 `nwkSEncKey`|string|false|
 `sNwkSIntKey`|string|false|
 
-### Fetch End-Device Activation
+### Retrieve End-Device Activation
 
 Retrieves the activation for the given end-device.
 
