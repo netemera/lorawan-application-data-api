@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Authorization](#authorization)
-  - [Register Client](register-client)
+  - [Register Client](#register-client)
   - [Obtain Access Token with Client Credentials](#obtain-access-token-with-client-credentials)
   - [Obtain Authorization Code](#obtain-authorization-code)
   - [Obtain Access Token with Authorization Code](#obtain-access-token-with-authorization-code)
@@ -20,7 +20,7 @@
   - [Device Profile](#device-profile)
   - [Fetch Device Profiles](#fetch-device-profiles)
   - [Fetch Device Profile](#fetch-device-profile)
-  - [Add Device Profile](#create-device-profile)
+  - [Create Device Profile](#create-device-profile)
   - [Update Device Profile](#update-device-profile)
   - [Delete Device Profile](#delete-device-profile)
 - [End-Devices](#end-devices)
@@ -191,7 +191,7 @@ HTTP/1.1 302 Found
 Location: REDIRECT_URI?code=AUTHORIZATION_CODE
 ```
 
-### Create Access Token with Authorization Code
+### Obtain Access Token with Authorization Code
 
 This method is applicable to apps wanting to access resources on behalf of other resource owners. Obtaining an authorization code is described in [Obtain Authorization Code](#obtain-authorization-code) section.
 
@@ -251,7 +251,7 @@ Pragma: no-cache
 }
 ```
 
-### Get Access Token with Refresh Token
+### Obtain Access Token with Refresh Token
 
 #### Endpoint
 
@@ -1047,7 +1047,7 @@ Content-Type: application/json
 
 ### Fetch End-Device
 
-Retrieves the end-device identified by the given device EUI.
+Retrieves the end-device identified by the given EUI.
 
 #### Request Definition
 
@@ -1057,7 +1057,7 @@ GET /api/v4/end-devices/{dev_eui}
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI identifier of the end-device
+`dev_eui`|string|true|The EUI of the end-device
 
 #### Request Headers
 
@@ -1158,7 +1158,7 @@ HTTP/1.1 201 Created
 
 ### Update End-Device
 
-Updates the end-device identified by the given device EUI.
+Updates the end-device identified by the given EUI.
 
 #### Request Definition
 
@@ -1168,7 +1168,7 @@ PATCH /api/v4/end-devices/{dev_eui}
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI identifier of the end-device
+`dev_eui`|string|true|The EUI of the end-device
 
 #### Request Headers
 
@@ -1208,7 +1208,7 @@ HTTP/1.1 201 Created
 
 ### Delete End-Device
 
-Deletes the end-device identified by the given device EUI.
+Deletes the end-device identified by the given EUI.
 
 #### Request Definition
 
@@ -1218,7 +1218,7 @@ DELETE /api/v4/end-devices/{dev_eui}
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI identifier of the end-device
+`dev_eui`|string|true|The EUI of the end-device
 
 #### Request Headers
 
@@ -1252,15 +1252,15 @@ curl \
 HTTP/1.1 204 No Content
 ```
 
-## Activations
+## End-Device Activations
 
-### Activation
+### End-Device Activation
 
 An activation has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`devEui`|string|false|The EUI identifier of the end-device
+`devEui`|string|false|The EUI of the end-device
 `devAddr`|string|false|The network address of the end-device
 `aFCntDown`|integer|false|
 `appSKey`|string|false|
@@ -1272,7 +1272,7 @@ Attribute|Type|Optional|Description
 
 ### Fetch End-Device Activation
 
-Retrieves the activation for the given device.
+Retrieves the activation for the given end-device.
 
 #### Request Definition
 
@@ -1282,7 +1282,7 @@ GET /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI identifier of the end-device
+`dev_eui`|string|true|The EUI of the end-device
 
 #### Request Headers
 
@@ -1346,7 +1346,7 @@ POST /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI identifier of the end-device
+`dev_eui`|string|true|The EUI of the end-device
 
 #### Request Headers
 
@@ -1396,7 +1396,7 @@ PATCH /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI identifier of the end-device
+`dev_eui`|string|true|The EUI of the end-device
 
 #### Request Headers
 
@@ -1436,7 +1436,7 @@ HTTP/1.1 201 Created
 
 ### Delete End-Device Activation
 
-Deletes the activation for the given device EUI.
+Deletes the activation for the given EUI.
 
 #### Request Definition
 
@@ -1446,7 +1446,7 @@ DELETE /api/v4/end-devices/{dev_eui}/activation
 
 Parameter|Type|Required|Description
 ---|---|---|---
-`dev_eui`|string|true|The EUI identifier of the end-device
+`dev_eui`|string|true|The EUI of the end-device
 
 #### Request Headers
 
@@ -1521,7 +1521,7 @@ The endpoint enables retrieving packets received in a given historical time rang
 
 #### Request Definition
 
-GET /api/v4/uplink-packets/end-devices/{dev_eui}?filter[since]={since}&filter[until]={until}
+GET /api/v4/uplink-packets/end-devices/{dev_eui}?filter[since]={since}&filter[until]={until}&filter[tail]={tail}&filter[follow]={follow}
 
 #### Request Parameters
 
@@ -1530,6 +1530,8 @@ Parameter|Type|Required|Description
 `dev_eui`|string|true|The EUI-64 identifier of the end device
 `filter[since]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
 `filter[until]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
+`filter[tail]`|number|false|The number of last rows to retrieve
+`filter[follow]`|boolean|false|Follows the output. Defaults to `true`
 
 #### Request Headers
 
@@ -1618,7 +1620,7 @@ The endpoint enables retrieving packets received in a given historical time rang
 
 #### Request Definition
 
-GET /api/v4/uplink-packets/applications/{application_id}?filter[since]={since}&filter[until]={until}
+GET /api/v4/uplink-packets/applications/{application_id}?filter[since]={since}&filter[until]={until}&filter[tail]={tail}&filter[follow]={follow}
 
 #### Request Parameters
 
@@ -1627,6 +1629,8 @@ Parameter|Type|Required|Description
 `application_id`|string|true|The identifier of an application
 `filter[since]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
 `filter[until]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
+`filter[tail]`|number|false|The number of last rows to retrieve
+`filter[follow]`|boolean|false|Follows the output. Defaults to `true`
 
 #### Request Headers
 
