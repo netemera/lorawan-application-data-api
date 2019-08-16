@@ -1,4 +1,4 @@
-# Netemera Network API V4
+# Netemera LoRaWAN API V4
 
 ## Table of Contents
 
@@ -48,7 +48,7 @@
 
 ## Introduction
 
-Netemera Network API is a HTTP-based interface enabling programmatic management of and communication with end-devices activated in the Netemera LoRaWAN™ network.
+Netemera LoRaWAN API is a HTTP-based interface enabling programmatic management of and communication with end-devices activated in the network.
 
 The interface allows for the management of:
 
@@ -58,7 +58,7 @@ The interface allows for the management of:
 
 A client can subscribe to and receive live and historical data (uplink packets) sent by activated end-devices. A separate endpoint allows for sending data (downlink packets) to end-devices.
 
-The API is available at the following base URL: [https://network.netemera.com/api/v4](https://network.netemera.com/api/v4) and combines RESTful and [SSE (Server-Sent Events)](https://www.w3.org/TR/eventsource/) endpoints. Requests and response bodies are formatted in [JSON](https://www.json.org/) and the [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol is used for authorization.
+The API is available at the following base URL (EU region): [https://eu868.lorawan.netemera.com/api/v4](https://eu868.lorawan.netemera.com/api/v4) and combines RESTful and [SSE (Server-Sent Events)](https://www.w3.org/TR/eventsource/) endpoints. Requests and response bodies are formatted in [JSON](https://www.json.org/) and the [OAuth 2.0](https://tools.ietf.org/html/rfc6749) protocol is used for authorization.
 
 > **IMPORTANT:** You cannot run any of the sample requests in this guide as-is. Replace call-specific parameters such as host names, tokens, IDs, and secrets with your own values.
 
@@ -93,7 +93,7 @@ The parameters must be added using the "application/x-www-form-urlencoded" forma
 Parameter|Type|Required|Description
 ---|---|---|---
 `grant_type`|string|true| Must equal "client_credentials"
-`audience`|string|true|The target API's URL the access token will be generated for. Must equal "https://network.netemera.com/api/v4"
+`audience`|string|true|The target API's URL the access token will be generated for. Must equal "https://eu868.lorawan.netemera.com/api/v4"
 
 #### Request Headers
 
@@ -119,7 +119,7 @@ curl \
   --request POST \
   --url 'https://authorization.netemera.com/api/v1/oauth2/token' \
   --user 'CLIENT_ID:CLIENT_SECRET' \
-  --data 'grant_type=client_credentials&audience=https://network.netemera.com/api/v4'
+  --data 'grant_type=client_credentials&audience=https://eu868.lorawan.netemera.com/api/v4'
 ```
 
 #### Sample Response
@@ -157,7 +157,7 @@ Parameter|Type|Required|Description
 `redirect_uri`|string|false| The redirect URI, as defined during the [client registration procedure](register-client)
 `scope`|string|false| The requested scope
 `state`|string|false| The state value
-`audience`|string|true| The target API's URL the access token will be generated for. Must equal "https://network.netemera.com/api/v4"
+`audience`|string|true| The target API's URL the access token will be generated for. Must equal "https://eu868.lorawan.netemera.com/api/v4"
 
 #### Request Headers
 
@@ -181,7 +181,7 @@ Field|Type|Optional|Description
 ```shell
 curl \
   --request GET \
-  --url 'https://authorization.netemera.com/api/v1/oauth2/authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPE&state=STATE&audience=https://network.netemera.com/api/v4' \
+  --url 'https://authorization.netemera.com/api/v1/oauth2/authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPE&state=STATE&audience=https://eu868.lorawan.netemera.com/api/v4' \
   --user 'RESOURCE_OWNER_ID:RESOURCE_OWNER_SECRET'
 ```
 
@@ -351,7 +351,7 @@ Status|Body|Description
 ```shell
 curl
   --request GET \
-  --url 'https://network.netemera.com/api/v4/applications' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/applications' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -408,7 +408,7 @@ Status|Body|Description
 ```shell
 curl
   --request GET \
-  --url 'https://network.netemera.com/api/v4/applications/APPLICATION_ID' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -463,7 +463,7 @@ Status|Body|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://network.netemera.com/api/v4/applications' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/applications' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"application","attributes":{"name":"test"}}}'
@@ -525,7 +525,7 @@ Status|Body|Description
 ```shell
 curl \
   --request PATCH \
-  --url 'https://network.netemera.com/api/v4/applications/APPLICATION_ID' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"application","id":"APPLICATION_ID","attributes":{"applicationId":"APPLICATION_ID","name":"test"}}}'
@@ -584,7 +584,7 @@ Status|Body|Description
 ```shell
 curl \
   --request DELETE \
-  --url 'https://network.netemera.com/api/v4/applications/APPLICATION_ID' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json'
 ```
@@ -654,7 +654,7 @@ Status|Body|Description
 ```shell
 curl
   --request GET \
-  --url 'https://network.netemera.com/api/v4/device-profiles' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -729,7 +729,7 @@ Status|Body|Description
 ```shell
 curl
   --request GET \
-  --url 'https://network.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -802,7 +802,7 @@ Status|Body|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://network.netemera.com/api/v4/device-profiles' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"device-profile","attributes":{"name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
@@ -882,7 +882,7 @@ Status|Body|Description
 ```shell
 curl \
   --request PATCH \
-  --url 'https://network.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"device-profile","id":"DEVICE_PROFILE_ID","attributes":{"deviceProfileId":"DEVICE_PROFILE_ID","name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
@@ -959,7 +959,7 @@ Status|Body|Description
 ```shell
 curl \
   --request DELETE \
-  --url 'https://network.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json'
 ```
@@ -1019,7 +1019,7 @@ Status|Body|Description
 ```shell
 curl
   --request GET \
-  --url 'https://network.netemera.com/api/v4/applications/APPLICATION_ID/end-devices' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -1080,7 +1080,7 @@ Status|Body|Description
 ```shell
 curl
   --request GET \
-  --url 'https://network.netemera.com/api/v4/end-devices/DEV_EUI' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -1145,7 +1145,7 @@ Status|Body|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://network.netemera.com/api/v4/applications/APPLICATION_ID/end-devices/DEV_EUI' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000"}}}'
@@ -1195,7 +1195,7 @@ Status|Body|Description
 ```shell
 curl \
   --request PATCH \
-  --url 'https://network.netemera.com/api/v4/end-devices/DEV_EUI' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000",}}}'
@@ -1242,7 +1242,7 @@ Status|Body|Description
 ```shell
 curl \
   --request DELETE \
-  --url 'https://network.netemera.com/api/v4/end-devices/DEV_EUI' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json'
 ```
@@ -1305,7 +1305,7 @@ Status|Body|Description
 ```shell
 curl
   --request GET \
-  --url 'https://network.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -1373,7 +1373,7 @@ Status|Body|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://network.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"0000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
@@ -1423,7 +1423,7 @@ Status|Body|Description
 ```shell
 curl \
   --request PATCH \
-  --url 'https://network.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"0000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
@@ -1470,7 +1470,7 @@ Status|Body|Description
 ```shell
 curl \
   --request DELETE \
-  --url 'https://network.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json'
 ```
@@ -1556,7 +1556,7 @@ Status|Body|Description
 ```shell
 curl \
   --request GET \
-  --url 'https://network.netemera.com/api/v4/uplink-packets/end-devices/DEV_EUI' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/uplink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
   --header 'Last-Event-ID: LAST_EVENT_ID' \
@@ -1655,7 +1655,7 @@ Status|Body|Description
 ```shell
 curl \
   --request GET \
-  --url 'https://network.netemera.com/api/v4/uplink-packets/applications/APPLICATION_ID' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/uplink-packets/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
   --header 'Last-Event-ID: LAST_EVENT_ID' \
@@ -1763,7 +1763,7 @@ Status|Body|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://network.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{"data":{"type":"downlink-packet":,"attributes":{"fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
@@ -1821,7 +1821,7 @@ Status|Body|Description
 ```shell
 curl \
   --request GET \
-  --url 'https://network.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
+  --url 'https://eu868.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
   --header 'Last-Event-ID: LAST_EVENT_ID' \
