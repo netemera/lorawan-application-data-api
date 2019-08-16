@@ -84,7 +84,7 @@ This method is applicable to clients wanting to access resources on their own be
 
 #### Endpoint
 
-POST https://authorization.netemera.com/api/v1/oauth2/token
+POST https://authorization.netemera.com/api/v2/oauth2/token
 
 #### Request Parameters
 
@@ -117,7 +117,7 @@ Field|Type|Optional|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://authorization.netemera.com/api/v1/oauth2/token' \
+  --url 'https://authorization.netemera.com/api/v2/oauth2/token' \
   --user 'CLIENT_ID:CLIENT_SECRET' \
   --data 'grant_type=client_credentials&audience=https://eu868.lorawan.netemera.com/api/v4'
 ```
@@ -144,7 +144,7 @@ To obtain an authorization code for accessing resources on behalf of a resource 
 
 #### Endpoint
 
-GET https://authorization.netemera.com/api/v1/oauth2/authorize
+GET https://authorization.netemera.com/api/v2/oauth2/authorize
 
 #### Request Parameters
 
@@ -181,7 +181,7 @@ Field|Type|Optional|Description
 ```shell
 curl \
   --request GET \
-  --url 'https://authorization.netemera.com/api/v1/oauth2/authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPE&state=STATE&audience=https://eu868.lorawan.netemera.com/api/v4' \
+  --url 'https://authorization.netemera.com/api/v2/oauth2/authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPE&state=STATE&audience=https://eu868.lorawan.netemera.com/api/v4' \
   --user 'RESOURCE_OWNER_ID:RESOURCE_OWNER_SECRET'
 ```
 
@@ -198,7 +198,7 @@ This method is applicable to apps wanting to access resources on behalf of other
 
 #### Endpoint
 
-POST https://authorization.netemera.com/api/v1/oauth2/token
+POST https://authorization.netemera.com/api/v2/oauth2/token
 
 #### Request Parameters
 
@@ -231,7 +231,7 @@ Field|Type|Optional|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://authorization.netemera.com/api/v1/oauth2/token' \
+  --url 'https://authorization.netemera.com/api/v2/oauth2/token' \
   --user 'CLIENT_ID:CLIENT_SECRET' \
   --data 'grant_type=authorization_code&code=AUTHORIZATION_CODE'
 ```
@@ -256,7 +256,7 @@ Pragma: no-cache
 
 #### Endpoint
 
-POST https://authorization.netemera.com/api/v1/oauth2/token
+POST https://authorization.netemera.com/api/v2/oauth2/token
 
 #### Request Parameters
 
@@ -289,7 +289,7 @@ Field|Type|Optional|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://authorization.netemera.com/api/v1/oauth2/token' \
+  --url 'https://authorization.netemera.com/api/v2/oauth2/token' \
   --user 'CLIENT_ID:CLIENT_SECRET' \
   --data 'grant_type=refresh_token&refresh_token=REFRESH_TOKEN'
 ```
