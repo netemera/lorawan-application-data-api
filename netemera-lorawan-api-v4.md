@@ -39,12 +39,12 @@
 - [Uplink Packets](#uplink-packets)
   - [Uplink Packet](#uplink-packet)
     - [Gateway Information](#gateway-information)
-  - [Retrieve Uplink Packets Received From End-Device](#retrieve-uplink-packets-received-from-end-device)
-  - [Retrieve Uplink Packets Received From Application End-Devices](#retrieve-uplink-packets-received-from-application-end-devices)
+  - [Receive End-Device Uplink Packets](#receive-end-device-uplink-packets)
+  - [Receive Application Uplink Packets](#receive-application-uplink-packets)
 - [Downlink Packets](#downlink-packets)
   - [Downlink Packet](#downlink-packet)
-  - [Send Downlink Packet To End-Device](#send-downlink-packet-to-end-device)
-  - [Retrieve Downlink Packets Sent To End-Device](#retrieve-downlink-packets-sent-to-end-device)
+  - [Send End-Device Downlink Packet](#send-end-device-downlink-packet)
+  - [Receive End-Device Downlink Packets](#receive-end-device-downlink-packets)
 
 ## Introduction
 
@@ -126,7 +126,7 @@ curl \
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Content-Type: application/vnd.api+json;charset=UTF-8
 Cache-Control: no-store
 Pragma: no-cache
 
@@ -240,7 +240,7 @@ curl \
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Content-Type: application/vnd.api+json;charset=UTF-8
 Cache-Control: no-store
 Pragma: no-cache
 
@@ -335,7 +335,7 @@ GET /api/v4/applications
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -349,18 +349,18 @@ Status|Body|Description
 #### Sample Request
 
 ```shell
-curl
+curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": [{
@@ -392,7 +392,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -406,18 +406,18 @@ Status|Body|Description
 #### Sample Request
 
 ```shell
-curl
+curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -443,7 +443,7 @@ POST /api/v4/applications
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -465,7 +465,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"application","attributes":{"name":"test"}}}'
 ```
 
@@ -473,7 +473,7 @@ curl \
 
 ```http
 HTTP/1.1 201 Created
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -505,7 +505,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -527,7 +527,7 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"application","id":"APPLICATION_ID","attributes":{"applicationId":"APPLICATION_ID","name":"test"}}}'
 ```
 
@@ -535,7 +535,7 @@ curl \
 
 ```http
 HTTP/1.1 201 Created
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -567,7 +567,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -586,7 +586,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
@@ -638,7 +638,7 @@ GET /api/v4/device-profiles
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -652,18 +652,18 @@ Status|Body|Description
 #### Sample Request
 
 ```shell
-curl
+curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": [{
@@ -713,7 +713,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -727,18 +727,18 @@ Status|Body|Description
 #### Sample Request
 
 ```shell
-curl
+curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -782,7 +782,7 @@ POST /api/v4/device-profiles
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -804,7 +804,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"device-profile","attributes":{"name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
 ```
 
@@ -812,7 +812,7 @@ curl \
 
 ```http
 HTTP/1.1 201 Created
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -862,7 +862,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -884,7 +884,7 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"device-profile","id":"DEVICE_PROFILE_ID","attributes":{"deviceProfileId":"DEVICE_PROFILE_ID","name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
 ```
 
@@ -892,7 +892,7 @@ curl \
 
 ```http
 HTTP/1.1 201 Created
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -942,7 +942,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -961,7 +961,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
@@ -1003,7 +1003,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -1017,18 +1017,18 @@ Status|Body|Description
 #### Sample Request
 
 ```shell
-curl
+curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": [{
@@ -1064,7 +1064,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -1078,18 +1078,18 @@ Status|Body|Description
 #### Sample Request
 
 ```shell
-curl
+curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -1125,7 +1125,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -1147,7 +1147,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000"}}}'
 ```
 
@@ -1175,7 +1175,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -1197,7 +1197,7 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000",}}}'
 ```
 
@@ -1225,7 +1225,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -1244,7 +1244,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
@@ -1289,7 +1289,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|s
+`Accept: application/vnd.api+json`|true|s
 
 #### Response
 
@@ -1303,18 +1303,18 @@ Status|Body|Description
 #### Sample Request
 
 ```shell
-curl
+curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: application/vnd.api+json
 
 {
   "data": {
@@ -1353,7 +1353,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -1375,7 +1375,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"0000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
 ```
 
@@ -1403,7 +1403,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -1425,7 +1425,7 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"0000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
 ```
 
@@ -1453,7 +1453,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Response
 
@@ -1472,7 +1472,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json'
+  --header 'Accept: application/vnd.api+json'
 ```
 
 #### Sample Response
@@ -1487,7 +1487,7 @@ Uplink packets contain payload sent by commissioned end-devices along with radio
 
 ### Uplink Packet
 
-An uplink packet as the following attributes:
+An uplink packet has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
@@ -1512,7 +1512,7 @@ Attribute|Type|Optional|Description
 `rssi`|number|false|The RSSI
 `snr`|number|false|The SNR
 
-### Retrieve Uplink Packets Received From End-Device
+### Receive End-Device Uplink Packets
 
 Opens a SSE stream of uplink packets received by the network from the given end device.
 
@@ -1522,7 +1522,7 @@ The endpoint enables retrieving packets with timestamps in a given time range by
 
 #### Request Definition
 
-GET /api/v4/uplink-packets/end-devices/{dev_eui}?filter[since]={since}&filter[until]={until}&filter[tail]={tail}&filter[follow]={follow}
+GET /api/v4/uplink-packets/end-devices/{dev_eui}?filter[since]={since}&filter[until]={until}&filter[tail]={tail}
 
 #### Request Parameters
 
@@ -1532,7 +1532,6 @@ Parameter|Type|Required|Description
 `filter[since]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
 `filter[until]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
 `filter[tail]`|number|false|The number of last rows to retrieve
-`filter[follow]`|boolean|false|Follows the output. Defaults to `true`
 
 #### Request Headers
 
@@ -1611,7 +1610,7 @@ data:{
 id:AAABWByxB+U=
 ```
 
-### Retrieve Uplink Packets Received From Application End-Devices
+### Receive Application Uplink Packets
 
 Opens a SSE stream of uplink packets received by the network from all end devices belonging to the given application.
 
@@ -1621,7 +1620,7 @@ The endpoint enables retrieving packets with timestamps in a given time range by
 
 #### Request Definition
 
-GET /api/v4/uplink-packets/applications/{application_id}?filter[since]={since}&filter[until]={until}&filter[tail]={tail}&filter[follow]={follow}
+GET /api/v4/uplink-packets/applications/{application_id}?filter[since]={since}&filter[until]={until}&filter[tail]={tail}
 
 #### Request Parameters
 
@@ -1631,7 +1630,6 @@ Parameter|Type|Required|Description
 `filter[since]`|string|false|The UTC timestamp of the beginning of the time range in ISO 8601 format (inclusive)
 `filter[until]`|string|false|The UTC timestamp of the end of the time range in ISO 8601 format (exclusive)
 `filter[tail]`|number|false|The number of last rows to retrieve
-`filter[follow]`|boolean|false|Follows the output. Defaults to `true`
 
 #### Request Headers
 
@@ -1725,7 +1723,7 @@ Attribute|Type|Optional|Description
 `confirmed`|boolean|false|Require packet reception confirmation from the end device
 `frmPayload`|string|true|The payload in hex
 
-### Send Downlink Packet To End-Device
+### Send End-Device Downlink Packet
 
 Sends a downlink packet to the given end device. The packet will be queued by the network and sent to the end-device in the first available time window.
 
@@ -1743,7 +1741,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/json`|true|
+`Accept: application/vnd.api+json`|true|
 
 #### Request Body
 
@@ -1765,7 +1763,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/json' \
+  --header 'Content-Type: application/vnd.api+json' \
   --data '{"data":{"type":"downlink-packet":,"attributes":{"fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
 ```
 
@@ -1777,7 +1775,7 @@ HTTP:
 HTTP/1.1 202
 ```
 
-### Retrieve Downlink Packets Sent To End-Device
+### Receive End-Device Downlink Packets
 
 Opens a SSE stream of downlink packets received by the network from client applications.
 
