@@ -126,7 +126,7 @@ curl \
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json;charset=UTF-8
+Content-Type: application/json;charset=UTF-8
 Cache-Control: no-store
 Pragma: no-cache
 
@@ -240,7 +240,7 @@ curl \
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json;charset=UTF-8
+Content-Type: application/json;charset=UTF-8
 Cache-Control: no-store
 Pragma: no-cache
 
@@ -320,7 +320,7 @@ An application has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`applicationId`|string|false|The unique identifier
+`applicationId`|string|true|The unique identifier
 `name`|string|true|A friendly name
 
 ### Retrieve Applications
@@ -335,7 +335,7 @@ GET /api/v4/applications
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -353,14 +353,14 @@ curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": [{
@@ -392,7 +392,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -410,14 +410,14 @@ curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": {
@@ -443,7 +443,7 @@ POST /api/v4/applications
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -465,7 +465,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"application","attributes":{"name":"test"}}}'
 ```
 
@@ -473,7 +473,7 @@ curl \
 
 ```http
 HTTP/1.1 201 Created
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": {
@@ -505,7 +505,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -515,7 +515,7 @@ A [JSON:API-style document](https://jsonapi.org/format/#document-structure) cont
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application) object|The application has been updated
+`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application) object|The application has been updated
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -527,26 +527,14 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"application","id":"APPLICATION_ID","attributes":{"applicationId":"APPLICATION_ID","name":"test"}}}'
 ```
 
 #### Sample Response
 
 ```http
-HTTP/1.1 201 Created
-Content-Type: application/vnd.api+json
-
-{
-  "data": {
-    "type": "application",
-    "id": "APPLICATION_ID",
-    "attributes": {
-      "applicationId": "APPLICATION_ID",
-      "name": "test"
-     }
-  }
-}
+HTTP/1.1 202 OK
 ```
 
 ### Delete Application
@@ -567,7 +555,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -586,7 +574,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
@@ -605,7 +593,7 @@ A device profile has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`deviceProfileId`|string|false|The unique identifier
+`deviceProfileId`|string|true|The unique identifier
 `name`|string|true|A friendly name
 `supportsClassB`|boolean|false|`true` if an end-device supports class B
 `classBTimeout`|integer|true|If class B is supported, the maximum delay, in seconds, for an end-device to answer a MAC request or a confirmed downlink frame
@@ -638,7 +626,7 @@ GET /api/v4/device-profiles
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -656,14 +644,14 @@ curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": [{
@@ -713,7 +701,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -731,14 +719,14 @@ curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": {
@@ -782,7 +770,7 @@ POST /api/v4/device-profiles
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -804,7 +792,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"device-profile","attributes":{"name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
 ```
 
@@ -812,7 +800,7 @@ curl \
 
 ```http
 HTTP/1.1 201 Created
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": {
@@ -862,7 +850,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -872,7 +860,7 @@ A [JSON:API-style document](https://jsonapi.org/format/#document-structure) cont
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile) object|The device profile has been updated
+`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile) object|The device profile has been updated
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -884,44 +872,14 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"device-profile","id":"DEVICE_PROFILE_ID","attributes":{"deviceProfileId":"DEVICE_PROFILE_ID","name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
 ```
 
 #### Sample Response
 
 ```http
-HTTP/1.1 201 Created
-Content-Type: application/vnd.api+json
-
-{
-  "data": {
-    "type": "device-profile",
-    "id": "DEVICE_PROFILE_ID",
-    "attributes": {
-      "deviceProfileId": "DEVICE_PROFILE_ID",
-      "name": "test",
-      "supportsClassB": true,
-      "classBTimeout": 1,
-      "pingSlotPeriod": 1,
-      "pingSlotFrequency": 868.60,
-      "supportsClassC": true,
-      "classCTimeout": 1,
-      "macVersion": "LW11",
-      "regParamsRevision": "RP11B",
-      "supportsJoin": true,
-      "rxDelay1": 1,
-      "rxDrOffset1": 1,
-      "rxDataRate2": 250,
-      "rxFreq2": 868.10,
-      "factoryPresetFreqs": [868.10, 868.30, 868.50],
-      "maxEirp": 14,
-      "maxDutyCycle": 0.1,
-      "rfRegion": "EU868",
-      "supports32BitFCnt": null
-    }
-  }
-}
+HTTP/1.1 201 OK
 ```
 
 ### Delete Device Profile
@@ -942,7 +900,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -961,7 +919,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
@@ -1003,7 +961,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -1021,14 +979,14 @@ curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": [{
@@ -1064,7 +1022,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -1082,14 +1040,14 @@ curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": {
@@ -1125,7 +1083,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -1147,7 +1105,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000"}}}'
 ```
 
@@ -1175,7 +1133,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -1197,7 +1155,7 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000",}}}'
 ```
 
@@ -1225,7 +1183,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -1244,7 +1202,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
@@ -1289,7 +1247,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|s
+`Accept: application/json`|true|s
 
 #### Response
 
@@ -1307,14 +1265,14 @@ curl \
   --request GET \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/vnd.api+json
+Content-Type: application/json
 
 {
   "data": {
@@ -1322,7 +1280,7 @@ Content-Type: application/vnd.api+json
     "id": "DEV_EUI",
     "attributes": {
       "devEui": "DEV_EUI",
-      "devAddr": "0000000",
+      "devAddr": "00000000",
       "aFCntDown": 0,
       "appSKey": "00000000000000000000000000000000",
       "fCntUp": 0,
@@ -1353,7 +1311,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -1375,8 +1333,8 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
-  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"0000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
+  --header 'Content-Type: application/json' \
+  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
 ```
 
 #### Sample Response
@@ -1403,7 +1361,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -1425,7 +1383,7 @@ curl \
   --request PATCH \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"0000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
 ```
 
@@ -1453,7 +1411,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Response
 
@@ -1472,7 +1430,7 @@ curl \
   --request DELETE \
   --url 'https://eu868.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/vnd.api+json'
+  --header 'Accept: application/json'
 ```
 
 #### Sample Response
@@ -1741,7 +1699,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
-`Accept: application/vnd.api+json`|true|
+`Accept: application/json`|true|
 
 #### Request Body
 
@@ -1763,7 +1721,7 @@ curl \
   --request POST \
   --url 'https://eu868.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Content-Type: application/vnd.api+json' \
+  --header 'Content-Type: application/json' \
   --data '{"data":{"type":"downlink-packet":,"attributes":{"fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
 ```
 
