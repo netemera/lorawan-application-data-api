@@ -405,7 +405,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application)|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -455,13 +455,13 @@ Header|Required|Description
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application).
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application)|Successful response
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -519,13 +519,13 @@ Header|Required|Description
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application)|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -545,7 +545,10 @@ curl \
 #### Sample Response
 
 ```http
-HTTP/1.1 202 OK
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{}
 ```
 
 ### Delete Application
@@ -596,8 +599,6 @@ HTTP/1.1 204 No Content
 
 ## Application Integrations
 
-Integrations allow 3rd-party services to manage and communicate with end-devices grouped under an application.
-
 ### Akenza Core
 
 #### Akenza Core Application Integration
@@ -606,7 +607,7 @@ An Akenza Core application integration has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`applicationId`|string|true|The unique identifier of the application
+`applicationId`|string|false|The unique identifier of the application
 `gatewayUrl`|string|false|The Akzenza Core gateway URL
 
 #### Retrieve Akenza Core Application Integration
@@ -633,7 +634,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -668,7 +669,7 @@ Content-Type: application/json
 
 #### Create Akenza Core Application Integration
 
-Creates a new Akenza Core application integration.
+Creates an Akenza Core application integration.
 
 ##### Request Definition
 
@@ -683,13 +684,13 @@ Header|Required|Description
 
 ##### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration).
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Akenza Core Application Integration](#akenza-core-application-integration).
 
 ##### Response
 
 Status|Body|Description
 ---|---|---
-`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -703,7 +704,7 @@ curl \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --header 'Accept: application/json' \
-  --data '{"data":{"type":"akenza-core-application-integration","attributes":{"gatewayUrl":"GATEWAY_URL"}}}'
+  --data '{"data":{"type":"akenza-core-application-integration","id":"APPLICATION_ID","attributes":{"applicationId":"APPLICATION_ID","gatewayUrl":"GATEWAY_URL"}}}'
 ```
 
 ##### Sample Response
@@ -712,16 +713,7 @@ curl \
 HTTP/1.1 201 Created
 Content-Type: application/json
 
-{
-  "data": {
-    "type": "akenza-core-application-integration",
-    "id": "APPLICATION_ID",
-    "attributes": {
-      "applicationId": "APPLICATION_ID",
-      "gatewayUrl": "GATEWAY_URL"
-     }
-  }
-}
+{}
 ```
 
 #### Update Akenza Core Application Integration
@@ -747,13 +739,13 @@ Header|Required|Description
 
 ##### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration).
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Akenza Core Application Integration](#akenza-core-application-integration).
 
 ##### Response
 
 Status|Body|Description
 ---|---|---
-`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -767,25 +759,16 @@ curl \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --header 'Accept: application/json' \
-  --data '{"data":{"type":"application","attributes":{"gatewayUrl":"GATEWAY_URL"}}}'
+  --data '{"data":{"type":"akenza-core-application-integration","id":"APPLICATION_ID","attributes":{"applicationId":"APPLICATION_ID","gatewayUrl":"GATEWAY_URL"}}}'
 ```
 
 ##### Sample Response
 
 ```http
-HTTP/1.1 202 OK
+HTTP/1.1 200 OK
 Content-Type: application/json
 
-{
-  "data": {
-    "type": "akenza-core-application-integration",
-    "id": "APPLICATION_ID",
-    "attributes": {
-      "applicationId": "APPLICATION_ID",
-      "gatewayUrl": "GATEWAY_URL"
-     }
-  }
-}
+{}
 ```
 
 #### Delete Akenza Core Application Integration
@@ -855,11 +838,11 @@ Attribute|Type|Optional|Description
 `macVersion`|string|false|The version of the LoRaWAN supported by an end-device e.g., 1.0.2
 `regParamsRevision`|string|false|The revision of the LoRaWAN Regional parameters supported by an end-device e.g., B
 `supportsJoin`|boolean|false|`true` if an end-device supports join (OTAA) or not (ABP)
-`rxDelay1`|integer|true|If end device uses ABP, the class A RX1 delay
-`rxDrOffset1`|integer|true|If an end device uses ABP, RX1 data rate offset
-`rxDataRate2`|integer|true|If an end device uses ABP, RX2 data rate
-`rxFreq2`|number|true|If an end device uses ABP, RX2 channel frequency e.g., 868.1
-`factoryPresetFreqs`|array[number]|false|If an end device uses ABP, a list of factory-preset frequencies e.g., [868.1, 868.3, 868.5]
+`rxDelay1`|integer|true|If end-device uses ABP, the class A RX1 delay
+`rxDrOffset1`|integer|true|If an end-device uses ABP, RX1 data rate offset
+`rxDataRate2`|integer|true|If an end-device uses ABP, RX2 data rate
+`rxFreq2`|number|true|If an end-device uses ABP, RX2 channel frequency e.g., 868.1
+`factoryPresetFreqs`|array[number]|false|If an end-device uses ABP, a list of factory-preset frequencies e.g., [868.1, 868.3, 868.5]
 `maxEirp`|integer|false|The maximum EIRP supported by an end-device
 `maxDutyCycle`|number|true|The maximum duty cycle supported by an end-device e.g., 0.01 (indicates 1%)
 `rfRegion`|string|false|The RF region name e.g., EU868
@@ -922,7 +905,7 @@ Content-Type: application/json
       "supportsJoin": true,
       "rxDelay1": 1,
       "rxDrOffset1": 0,
-      "rxDataRate2": 250,
+      "rxDataRate2": 0,
       "rxFreq2": 869.525,
       "factoryPresetFreqs": [868.1, 868.3, 868.5],
       "maxEirp": 14,
@@ -980,7 +963,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-  "data": [{
+  "data": {
     "type": "device-profile",
     "id": "DEVICE_PROFILE_ID",
     "attributes": {
@@ -997,7 +980,7 @@ Content-Type: application/json
       "supportsJoin": true,
       "rxDelay1": 1,
       "rxDrOffset1": 0,
-      "rxDataRate2": 250,
+      "rxDataRate2": 0,
       "rxFreq2": 869.525,
       "factoryPresetFreqs": [868.1, 868.3, 868.5],
       "maxEirp": 14,
@@ -1005,13 +988,13 @@ Content-Type: application/json
       "rfRegion": "EU868",
       "supports32BitFCnt": false
      }
-  }]
+  }
 }
 ```
 
 ### Create Device Profile
 
-Creates a new device profile.
+Creates a device profile.
 
 #### Request Definition
 
@@ -1046,7 +1029,7 @@ curl \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --header 'Accept: application/json' \
-  --data '{"data":[{"type":"device-profile","attributes":{"name":"My class-A OTAA device profile","supportsClassB":false,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":false,"classCTimeout":1,"macVersion":"1.0.2","regParamsRevision":"B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":0,"rxDataRate2":250,"rxFreq2":869.525,"factoryPresetFreqs":[868.1, 868.3, 868.5],"maxEirp":14,"maxDutyCycle":0.01,"rfRegion":"EU868","supports32BitFCnt":false}}]}'
+  --data '{"data":{"type":"device-profile","attributes":{"name":"My device profile","supportsClassB":false,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":false,"classCTimeout":1,"macVersion":"1.0.2","regParamsRevision":"B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":0,"rxDataRate2":0,"rxFreq2":869.525,"factoryPresetFreqs":[868.1, 868.3, 868.5],"maxEirp":14,"maxDutyCycle":0.01,"rfRegion":"EU868","supports32BitFCnt":false}}}'
 ```
 
 #### Sample Response
@@ -1056,7 +1039,7 @@ HTTP/1.1 201 Created
 Content-Type: application/json
 
 {
-  "data": [{
+  "data": {
     "type": "device-profile",
     "id": "DEVICE_PROFILE_ID",
     "attributes": {
@@ -1073,7 +1056,7 @@ Content-Type: application/json
       "supportsJoin": true,
       "rxDelay1": 1,
       "rxDrOffset1": 0,
-      "rxDataRate2": 250,
+      "rxDataRate2": 0,
       "rxFreq2": 869.525,
       "factoryPresetFreqs": [868.1, 868.3, 868.5],
       "maxEirp": 14,
@@ -1081,7 +1064,7 @@ Content-Type: application/json
       "rfRegion": "EU868",
       "supports32BitFCnt": false
      }
-  }]
+  }
 }
 ```
 
@@ -1128,13 +1111,16 @@ curl \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --header 'Accept: application/json' \
-  --data '{"data":[{"type":"device-profile","id":"DEVICE_PROFILE_ID","attributes":{"deviceProfileId":"DEVICE_PROFILE_ID","name":"My class-A OTAA device profile","supportsClassB":false,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":false,"classCTimeout":1,"macVersion":"1.0.2","regParamsRevision":"B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":0,"rxDataRate2":250,"rxFreq2":869.525,"factoryPresetFreqs":[868.1, 868.3, 868.5],"maxEirp":14,"maxDutyCycle":0.01,"rfRegion":"EU868","supports32BitFCnt":false}}]}'
+  --data '{"data":{"type":"device-profile","id":"DEVICE_PROFILE_ID","attributes":{"deviceProfileId":"DEVICE_PROFILE_ID","name":"My device profile","supportsClassB":false,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":false,"classCTimeout":1,"macVersion":"1.0.2","regParamsRevision":"B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":0,"rxDataRate2":0,"rxFreq2":869.525,"factoryPresetFreqs":[868.1, 868.3, 868.5],"maxEirp":14,"maxDutyCycle":0.01,"rfRegion":"EU868","supports32BitFCnt":false}}}'
 ```
 
 #### Sample Response
 
 ```http
 HTTP/1.1 200 OK
+Content-Type: application/json
+
+{}
 ```
 
 ### Delete Device Profile
@@ -1363,6 +1349,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
+  --header 'Accept: application/json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"My end-device","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000"}}}'
 ```
 
