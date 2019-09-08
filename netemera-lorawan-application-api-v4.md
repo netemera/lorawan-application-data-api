@@ -59,7 +59,7 @@ Netemera LoRaWAN Application API is a HTTP-based interface enabling programmatic
 
 The interface allows for the management of:
 
-* Applications, used to group end-devices into logical, collectively-managed collections, typically communicating with a single user application.
+* Applications, used to group end-devices into logical collections, typically communicating with a single user application.
 * Device profiles that include information about end-device capabilities and boot parameters that are needed for setting up the LoRaWAN™ radio access service.
 * The actual end-devices, their attributes and activation status in the network.
 
