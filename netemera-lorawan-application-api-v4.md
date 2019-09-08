@@ -1537,7 +1537,7 @@ Content-Type: application/json
 
 {
   "data": {
-    "type": "activation",
+    "type": "end-device-activation",
     "id": "DEV_EUI",
     "attributes": {
       "devEui": "DEV_EUI",
@@ -1596,7 +1596,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","fNwkSIntKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000","nwkSEncKey":"00000000000000000000000000000000","appSKey":"00000000000000000000000000000000","fCntUp":0,"nFCntDown":0,"aFCntDown":0}}}'
+  --data '{"data":{"type":"end-device-activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","fNwkSIntKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000","nwkSEncKey":"00000000000000000000000000000000","appSKey":"00000000000000000000000000000000","fCntUp":0,"nFCntDown":0,"aFCntDown":0}}}'
 ```
 
 #### Sample Response
@@ -1647,7 +1647,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","fNwkSIntKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000","nwkSEncKey":"00000000000000000000000000000000","appSKey":"00000000000000000000000000000000","fCntUp":0,"nFCntDown":0,"aFCntDown":0}}}'
+  --data '{"data":{"type":"end-device-activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","fNwkSIntKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000","nwkSEncKey":"00000000000000000000000000000000","appSKey":"00000000000000000000000000000000","fCntUp":0,"nFCntDown":0,"aFCntDown":0}}}'
 ```
 
 #### Sample Response
