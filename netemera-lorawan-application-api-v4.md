@@ -17,12 +17,12 @@
   - [Update Application](#update-application)
   - [Delete Application](#delete-application)
 - [Application Integrations](#application-integrations)
-  - [Hivemind](#hivemind)
-    - [Hivemind Application Integration](#hivemind-integration)
-    - [Retrieve Hivemind Application Integration](#retrieve-hivemind-integration)
-    - [Create Hivemind Application Integration](#create-hivemind-integration)
-    - [Update Hivemind Application Integration](#update-hivemind-integration)
-    - [Delete Hivemind Application Integration](#delete-hivemind-integration)
+  - [Akenza Core](#akenza-core)
+    - [Akenza Core Application Integration](#akenza-core-application-integration)
+    - [Retrieve Akenza Core Application Integration](#retrieve-akenza-core-application-integration)
+    - [Create Akenza Core Application Integration](#create-akenza-core-application-integration)
+    - [Update Akenza Core Application Integration](#update-akenza-core-application-integration)
+    - [Delete Akenza Core Application Integration](#delete-akenza-core-integration)
 - [Device Profiles](#device-profiles)
   - [Device Profile](#device-profile)
   - [Retrieve Device Profiles](#retrieve-device-profiles)
@@ -319,7 +319,7 @@ Pragma: no-cache
 
 ## Applications
 
-Applications are used to group end-devices into logical, collectively-managed collections, typically communicating with a single user application.
+Applications group end-devices into logical collections, typically communicating with a single user application.
 
 ### Application
 
@@ -348,7 +348,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an array of [Application](#application) objects|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an array of [Applications](#application)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -375,7 +375,7 @@ Content-Type: application/json
     "id": "APPLICATION_ID",
     "attributes": {
       "applicationId": "APPLICATION_ID",
-      "name": "test"
+      "name": "My application"
      }
   }]
 }
@@ -405,7 +405,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application) object|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -432,7 +432,7 @@ Content-Type: application/json
     "id": "APPLICATION_ID",
     "attributes": {
       "applicationId": "APPLICATION_ID",
-      "name": "test"
+      "name": "My application"
      }
   }
 }
@@ -450,17 +450,18 @@ POST /api/v4/applications
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application) object|Application has been created
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -473,7 +474,8 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/applications' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"application","attributes":{"name":"test"}}}'
+  --header 'Accept: application/json' \
+  --data '{"data":{"type":"application","attributes":{"name":"My application"}}}'
 ```
 
 #### Sample Response
@@ -488,7 +490,7 @@ Content-Type: application/json
     "id": "APPLICATION_ID",
     "attributes": {
       "applicationId": "APPLICATION_ID",
-      "name": "test"
+      "name": "My application"
      }
   }
 }
@@ -512,17 +514,18 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application) object.
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Application](#application) object|The application has been updated
+`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Applications](#application)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -535,7 +538,8 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"application","id":"APPLICATION_ID","attributes":{"applicationId":"APPLICATION_ID","name":"test"}}}'
+  --header 'Accept: application/json' \
+  --data '{"data":{"type":"application","id":"APPLICATION_ID","attributes":{"applicationId":"APPLICATION_ID","name":"My application"}}}'
 ```
 
 #### Sample Response
@@ -568,7 +572,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`204 No Content`||The application has been deleted
+`204 No Content`||Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `404 Not Found`||The application does not exist
@@ -590,28 +594,28 @@ curl \
 HTTP/1.1 204 No Content
 ```
 
-## Integrations
+## Application Integrations
 
-Integrations allow bi-directional communication and management of the end-devices by 3rd party services.
+Integrations allow 3rd-party services to manage and communicate with end-devices grouped under an application.
 
-### Hivemind
+### Akenza Core
 
-#### Hivemind Integration Attributes
+#### Akenza Core Application Integration
 
-An integration has the following attributes:
+An Akenza Core application integration has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
 `applicationId`|string|true|The unique identifier of the application
-`gatewayUrl`|string|false|The gateway URL
+`gatewayUrl`|string|false|The Akzenza Core gateway URL
 
-#### Retrieve Hivemind Application Integration
+#### Retrieve Akenza Core Application Integration
 
-Retrieves the integration identified by the given application ID.
+Retrieves the Akenza Core application integration identified by the given application ID.
 
 ##### Request Definition
 
-GET /api/v4/applications/{application_id}/integrations/hivemind
+GET /api/v4/applications/{application_id}/integrations/akenza-core
 
 ##### Request Parameters
 
@@ -629,7 +633,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Hivemind Integration](#hivemind-integration) attributes|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -639,7 +643,7 @@ Status|Body|Description
 ```shell
 curl \
   --request GET \
-  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/hivemind' \
+  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/akenza-core' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -652,7 +656,7 @@ Content-Type: application/json
 
 {
   "data": {
-    "type": "hivemind-integration",
+    "type": "akenza-core-application-integration",
     "id": "APPLICATION_ID",
     "attributes": {
       "applicationId": "APPLICATION_ID",
@@ -662,13 +666,13 @@ Content-Type: application/json
 }
 ```
 
-#### Create Hivemind Application Integration
+#### Create Akenza Core Application Integration
 
-Creates a new application integration.
+Creates a new Akenza Core application integration.
 
 ##### Request Definition
 
-POST /api/v4/applications/{application_id}/integrations/hivemind
+POST /api/v4/applications/{application_id}/integrations/akenza-core
 
 ##### Request Headers
 
@@ -679,13 +683,13 @@ Header|Required|Description
 
 ##### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Hivemind Integration](#hivemind-integration) attributes.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration).
 
 ##### Response
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Hivemind Integration](#hivemind-integration) attributes|Application has been created
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -695,11 +699,11 @@ Status|Body|Description
 ```shell
 curl \
   --request POST \
-  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/hivemind' \
+  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/akenza-core' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --header 'Accept: application/json' \
-  --data '{"data":{"type":"hivemind-application-integration","attributes":{"gatewayUrl":"GATEWAY_URL"}}}'
+  --data '{"data":{"type":"akenza-core-application-integration","attributes":{"gatewayUrl":"GATEWAY_URL"}}}'
 ```
 
 ##### Sample Response
@@ -710,7 +714,7 @@ Content-Type: application/json
 
 {
   "data": {
-    "type": "hivemind-integration",
+    "type": "akenza-core-application-integration",
     "id": "APPLICATION_ID",
     "attributes": {
       "applicationId": "APPLICATION_ID",
@@ -720,13 +724,13 @@ Content-Type: application/json
 }
 ```
 
-#### Update Hivemind Application Integration
+#### Update Akenza Core Application Integration
 
-Updates the integration identified by the given application ID.
+Updates the Akenza Core application integration identified by the given application ID.
 
 ##### Request Definition
 
-PATCH /api/v4/applications/{application_id}/integrations/hivemind
+PATCH /api/v4/applications/{application_id}/integrations/akenza-core
 
 ##### Request Parameters
 
@@ -743,13 +747,13 @@ Header|Required|Description
 
 ##### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Hivemind Integration](#hivemind-integration) attributes.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration).
 
 ##### Response
 
 Status|Body|Description
 ---|---|---
-`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Hivemind Integration](#hivemind-integration) attributes|The application has been updated
+`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing [Akenza Core Application Integration](#akenza-core-application-integration)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -759,7 +763,7 @@ Status|Body|Description
 ```shell
 curl \
   --request PATCH \
-  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/hivemind' \
+  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/akenza-core' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
   --header 'Accept: application/json' \
@@ -774,7 +778,7 @@ Content-Type: application/json
 
 {
   "data": {
-    "type": "hivemind-integration",
+    "type": "akenza-core-application-integration",
     "id": "APPLICATION_ID",
     "attributes": {
       "applicationId": "APPLICATION_ID",
@@ -784,13 +788,13 @@ Content-Type: application/json
 }
 ```
 
-#### Delete Hivemind Application Integration
+#### Delete Akenza Core Application Integration
 
-Deletes the integration identified by the given application ID.
+Deletes the Akenza Core application integration identified by the given application ID.
 
 ##### Request Definition
 
-DELETE /api/v4/applications/{application_id}/integrations/hivemind
+DELETE /api/v4/applications/{application_id}/integrations/akenza-core
 
 ##### Request Parameters
 
@@ -808,7 +812,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`204 No Content`||The application has been deleted
+`204 No Content`||Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `404 Not Found`||The application does not exist
@@ -819,7 +823,7 @@ Status|Body|Description
 ```shell
 curl \
   --request DELETE \
-  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/hivemind' \
+  --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/integrations/akenza-core' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: application/json'
 ```
@@ -848,16 +852,16 @@ Attribute|Type|Optional|Description
 `pingSlotFrequency`|number|true|If class B is supported, defines how often, in seconds, an end-device opens a ping slot window.
 `supportsClassC`|boolean|false|`true` if an end-device supports class C
 `classCTimeout`|integer|true|If class C is supported, the maximum delay, in seconds, for an end-device to answer a MAC request or a confirmed downlink frame
-`macVersion`|string|false|The version of the LoRaWAN supported by an end-device
-`regParamsRevision`|string|false|The revision of the LoRaWAN Regional parameters supported by an end-device
+`macVersion`|string|false|The version of the LoRaWAN supported by an end-device e.g., 1.0.2
+`regParamsRevision`|string|false|The revision of the LoRaWAN Regional parameters supported by an end-device e.g., B
 `supportsJoin`|boolean|false|`true` if an end-device supports join (OTAA) or not (ABP)
 `rxDelay1`|integer|true|If end device uses ABP, the class A RX1 delay
 `rxDrOffset1`|integer|true|If an end device uses ABP, RX1 data rate offset
 `rxDataRate2`|integer|true|If an end device uses ABP, RX2 data rate
-`rxFreq2`|number|true|If an end device uses ABP, RX2 channel frequency e.g., 868.10
-`factoryPresetFreqs`|array[number]|false|If an end device uses ABP, a list of factory-preset frequencies e.g., [868.10, 868.30, 868.50]
+`rxFreq2`|number|true|If an end device uses ABP, RX2 channel frequency e.g., 868.1
+`factoryPresetFreqs`|array[number]|false|If an end device uses ABP, a list of factory-preset frequencies e.g., [868.1, 868.3, 868.5]
 `maxEirp`|integer|false|The maximum EIRP supported by an end-device
-`maxDutyCycle`|number|true|The maximum duty cycle supported by an end-device
+`maxDutyCycle`|number|true|The maximum duty cycle supported by an end-device e.g., 0.01 (indicates 1%)
 `rfRegion`|string|false|The RF region name e.g., EU868
 `supports32BitFCnt`|boolean|true|`true` if an end-device supports 32-bit frame counter (mandatory for LoRaWAN 1.0 End-Devices)
 
@@ -879,7 +883,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an array of [Device Profile](#device-profile) objects|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an array of [Device Profiles](#device-profile)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -906,25 +910,25 @@ Content-Type: application/json
     "id": "DEVICE_PROFILE_ID",
     "attributes": {
       "deviceProfileId": "DEVICE_PROFILE_ID",
-      "name": "test",
-      "supportsClassB": true,
+      "name": "My class-A OTAA device profile",
+      "supportsClassB": false,
       "classBTimeout": 1,
       "pingSlotPeriod": 1,
       "pingSlotFrequency": 868.60,
-      "supportsClassC": true,
+      "supportsClassC": false,
       "classCTimeout": 1,
-      "macVersion": "LW11",
-      "regParamsRevision": "RP11B",
+      "macVersion": "1.0.2",
+      "regParamsRevision": "B",
       "supportsJoin": true,
       "rxDelay1": 1,
-      "rxDrOffset1": 1,
+      "rxDrOffset1": 0,
       "rxDataRate2": 250,
-      "rxFreq2": 868.10,
-      "factoryPresetFreqs": [868.10, 868.30, 868.50],
+      "rxFreq2": 869.525,
+      "factoryPresetFreqs": [868.1, 868.3, 868.5],
       "maxEirp": 14,
-      "maxDutyCycle": 0.1,
+      "maxDutyCycle": 0.01,
       "rfRegion": "EU868",
-      "supports32BitFCnt": null
+      "supports32BitFCnt": false
      }
   }]
 }
@@ -954,7 +958,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile) object|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -976,32 +980,32 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-  "data": {
+  "data": [{
     "type": "device-profile",
     "id": "DEVICE_PROFILE_ID",
     "attributes": {
       "deviceProfileId": "DEVICE_PROFILE_ID",
-      "name": "test",
-      "supportsClassB": true,
+      "name": "My class-A OTAA device profile",
+      "supportsClassB": false,
       "classBTimeout": 1,
       "pingSlotPeriod": 1,
       "pingSlotFrequency": 868.60,
-      "supportsClassC": true,
+      "supportsClassC": false,
       "classCTimeout": 1,
-      "macVersion": "LW11",
-      "regParamsRevision": "RP11B",
+      "macVersion": "1.0.2",
+      "regParamsRevision": "B",
       "supportsJoin": true,
       "rxDelay1": 1,
-      "rxDrOffset1": 1,
+      "rxDrOffset1": 0,
       "rxDataRate2": 250,
-      "rxFreq2": 868.10,
-      "factoryPresetFreqs": [868.10, 868.30, 868.50],
+      "rxFreq2": 869.525,
+      "factoryPresetFreqs": [868.1, 868.3, 868.5],
       "maxEirp": 14,
-      "maxDutyCycle": 0.1,
+      "maxDutyCycle": 0.01,
       "rfRegion": "EU868",
-      "supports32BitFCnt": null
+      "supports32BitFCnt": false
      }
-  }
+  }]
 }
 ```
 
@@ -1017,17 +1021,18 @@ POST /api/v4/device-profiles
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile) object|Device profile has been created
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1040,7 +1045,8 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/device-profiles' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"device-profile","attributes":{"name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
+  --header 'Accept: application/json' \
+  --data '{"data":[{"type":"device-profile","attributes":{"name":"My class-A OTAA device profile","supportsClassB":false,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":false,"classCTimeout":1,"macVersion":"1.0.2","regParamsRevision":"B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":0,"rxDataRate2":250,"rxFreq2":869.525,"factoryPresetFreqs":[868.1, 868.3, 868.5],"maxEirp":14,"maxDutyCycle":0.01,"rfRegion":"EU868","supports32BitFCnt":false}}]}'
 ```
 
 #### Sample Response
@@ -1050,32 +1056,32 @@ HTTP/1.1 201 Created
 Content-Type: application/json
 
 {
-  "data": {
+  "data": [{
     "type": "device-profile",
     "id": "DEVICE_PROFILE_ID",
     "attributes": {
       "deviceProfileId": "DEVICE_PROFILE_ID",
-      "name": "test",
-      "supportsClassB": true,
+      "name": "My class-A OTAA device profile",
+      "supportsClassB": false,
       "classBTimeout": 1,
       "pingSlotPeriod": 1,
       "pingSlotFrequency": 868.60,
-      "supportsClassC": true,
+      "supportsClassC": false,
       "classCTimeout": 1,
-      "macVersion": "LW11",
-      "regParamsRevision": "RP11B",
+      "macVersion": "1.0.2",
+      "regParamsRevision": "B",
       "supportsJoin": true,
       "rxDelay1": 1,
-      "rxDrOffset1": 1,
+      "rxDrOffset1": 0,
       "rxDataRate2": 250,
-      "rxFreq2": 868.10,
-      "factoryPresetFreqs": [868.10, 868.30, 868.50],
+      "rxFreq2": 869.525,
+      "factoryPresetFreqs": [868.1, 868.3, 868.5],
       "maxEirp": 14,
-      "maxDutyCycle": 0.1,
+      "maxDutyCycle": 0.01,
       "rfRegion": "EU868",
-      "supports32BitFCnt": null
-    }
-  }
+      "supports32BitFCnt": false
+     }
+  }]
 }
 ```
 
@@ -1097,17 +1103,18 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile) object|The device profile has been updated
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing a [Device Profile](#device-profile)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1120,13 +1127,14 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/device-profiles/DEVICE_PROFILE_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"device-profile","id":"DEVICE_PROFILE_ID","attributes":{"deviceProfileId":"DEVICE_PROFILE_ID","name":"test","supportsClassB":true,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":true,"classCTimeout":1,"macVersion":"LW11","regParamsRevision":"RP11B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":1,"rxDataRate2":250,"rxFreq2":868.10,"factoryPresetFreqs":[868.10,868.30,868.50],"maxEirp":14,"maxDutyCycle":0.1,"rfRegion": "EU868","supports32BitFCnt": null}}}'
+  --header 'Accept: application/json' \
+  --data '{"data":[{"type":"device-profile","id":"DEVICE_PROFILE_ID","attributes":{"deviceProfileId":"DEVICE_PROFILE_ID","name":"My class-A OTAA device profile","supportsClassB":false,"classBTimeout":1,"pingSlotPeriod":1,"pingSlotFrequency":868.60,"supportsClassC":false,"classCTimeout":1,"macVersion":"1.0.2","regParamsRevision":"B","supportsJoin":true,"rxDelay1":1,"rxDrOffset1":0,"rxDataRate2":250,"rxFreq2":869.525,"factoryPresetFreqs":[868.1, 868.3, 868.5],"maxEirp":14,"maxDutyCycle":0.01,"rfRegion":"EU868","supports32BitFCnt":false}}]}'
 ```
 
 #### Sample Response
 
 ```http
-HTTP/1.1 201 OK
+HTTP/1.1 200 OK
 ```
 
 ### Delete Device Profile
@@ -1153,7 +1161,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`204 No Content`||The device profile has been deleted
+`204 No Content`||Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `404 Not Found`||The device profile does not exist
@@ -1186,7 +1194,7 @@ Attribute|Type|Optional|Description
 `devEui`|string|false|The EUI-64
 `name`|string|true|A friendly name
 `applicationId`|string|false|The unique identifier of the [Application](#application)
-`deviceProfileId`|string|false|The unique identifier of the [Device Profile](#device)
+`deviceProfileId`|string|false|The unique identifier of the [Device Profile](#device-profile)
 `nwkKey`|string|true|The network key
 `appKey`|string|true|The application key
 
@@ -1214,7 +1222,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an array of [End-Device](#end-device) objects|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an array of [End-Devices](#end-device)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1241,7 +1249,7 @@ Content-Type: application/json
     "id": "DEV_EUI",
     "attributes": {
       "devEui": "DEV_EUI",
-      "name": "test",
+      "name": "My end-device",
       "applicationId": "APPLICATION_ID",
       "deviceProfileId": "DEVICE_PROFILE_ID",
       "nwkKey": "000000000000000000000000000000000000",
@@ -1275,7 +1283,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device) object|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1302,7 +1310,7 @@ Content-Type: application/json
     "id": "DEV_EUI",
     "attributes": {
       "devEui": "DEV_EUI",
-      "name": "test",
+      "name": "My end-device",
       "applicationId": "APPLICATION_ID",
       "deviceProfileId": "DEVICE_PROFILE_ID",
       "nwkKey": "000000000000000000000000000000000000",
@@ -1330,17 +1338,19 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
+
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device) object|End-device has been created
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1353,7 +1363,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/applications/APPLICATION_ID/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000"}}}'
+  --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"My end-device","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000"}}}'
 ```
 
 #### Sample Response
@@ -1380,17 +1390,18 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device](#end-device) object|The end-device has been updated
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an  [End-Device](#end-device)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1403,6 +1414,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
+  --header 'Accept: application/json' \
   --data '{"data":{"type":"end-device","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","name":"test","applicationId":"APPLICATION_ID","deviceProfileId": "DEVICE_PROFILE_ID","nwkKey":"000000000000000000000000000000000000","appKey":"000000000000000000000000000000000000",}}}'
 ```
 
@@ -1436,7 +1448,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`204 No Content`||The end-device has been deleted
+`204 No Content`||Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `404 Not Found`||The application does not exist
@@ -1460,21 +1472,23 @@ HTTP/1.1 204 No Content
 
 ## End-Device Activations
 
+To participate in a LoRaWAN network, each end-device has to be activated. Activation of an end-device can be achieved in two ways, either automatically via Over-The-Air Activation (OTAA) when an end-device is deployed or reset, or via Activation By Personalization (ABP) in which an activation record has to be created manually.
+
 ### End-Device Activation
 
-An activation has the following attributes:
+An end-device activation has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
 `devEui`|string|false|The EUI-64 of the end-device
-`devAddr`|string|false|The network address of the end-device
-`aFCntDown`|integer|false|
-`appSKey`|string|false|
-`fCntUp`|integer|false|
-`fNwkSIntKey`|string|false|
-`nFCntDown`|integer|false|
-`nwkSEncKey`|string|false|
-`sNwkSIntKey`|string|false|
+`devAddr`|string|true|The network address of the end-device
+`fNwkSIntKey`|string|false|The network session key specific for the end-device. It is used by the end-device to calculate the MIC or part of the MIC (message integrity code) of all uplink data messages. For LoRaWAN 1.0.x devices this is the equivalent of NwkSKey.
+`sNwkSIntKey`|string|false|The network session key specific for the end-device. It is used by the end-device to verify the MIC (message integrity code) of all downlink data messages to ensure data integrity and to compute half of the uplink messages MIC. For LoRaWAN 1.0.x devices this is the equivalent of NwkSKey.
+`nwkSEncKey`|string|false|The network session key specific to the end-device. It is used to encrypt & decrypt uplink & downlink MAC commands transmitted as payload on port 0 or in the FOpt field. For LoRaWAN 1.0.x devices this is the equivalent of NwkSKey.
+`appSKey`|string|false|The application session key specific for the end-device. It is used by both the application server and the end-device to encrypt and decrypt the payload field of application-specific data messages.
+`fCntUp`|integer|false|The number of data frames sent uplink by the end-device to the network server
+`nFCntDown`|integer|false|The number of MAC communication data frames sent by network server to the end-device. For LoRaWAN 1.0.x devices this is the equivalent of FCntDown.
+`aFCntDown`|integer|false|The number of data frames sent downlink to the end-device by the application server. For LoRaWAN 1.0.x devices this is the equivalent of FCntDown.
 
 ### Retrieve End-Device Activation
 
@@ -1500,7 +1514,7 @@ Header|Required|Description
 
 Status|Body|Description
 ---|---|---
-`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Activation](#activation) object|Successful response
+`200 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device Activation](#end-device-activation)|Successful response
 `400 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1528,13 +1542,13 @@ Content-Type: application/json
     "attributes": {
       "devEui": "DEV_EUI",
       "devAddr": "00000000",
-      "aFCntDown": 0,
+      "fNwkSIntKey": "00000000000000000000000000000000",
+      "sNwkSIntKey": "00000000000000000000000000000000",
+      "nwkSEncKey": "00000000000000000000000000000000",
       "appSKey": "00000000000000000000000000000000",
       "fCntUp": 0,
-      "fNwkSIntKey": "00000000000000000000000000000000",
       "nFCntDown": 0,
-      "nwkSEncKey": "00000000000000000000000000000000",
-      "sNwkSIntKey": "00000000000000000000000000000000"
+      "aFCntDown": 0
      }
   }
 }
@@ -1558,17 +1572,18 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
 
 #### Request Body
 
-A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Activation](#activation) object.
+A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device Activation](#end-device-activation).
 
 #### Response
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Activation](#activation) object|Activation has been created
+`201 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device Activation](#end-device-activation)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1581,7 +1596,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
+  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","fNwkSIntKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000","nwkSEncKey":"00000000000000000000000000000000","appSKey":"00000000000000000000000000000000","fCntUp":0,"nFCntDown":0,"aFCntDown":0}}}'
 ```
 
 #### Sample Response
@@ -1608,6 +1623,7 @@ Parameter|Type|Required|Description
 
 Header|Required|Description
 ---|---|---
+`Content-Type: application/json`|true|
 `Accept: application/json`|true|
 
 #### Request Body
@@ -1618,7 +1634,7 @@ A [JSON:API-style document](https://jsonapi.org/format/#document-structure) cont
 
 Status|Body|Description
 ---|---|---
-`202 Created`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [Activation](#activation) object|The activation has been updated
+`201 OK`|A [JSON:API-style document](https://jsonapi.org/format/#document-structure) containing an [End-Device Activation](#end-device-activation)|Successful response
 `401 Bad Request`||Request validation failed
 `401 Unauthorized`||Missing or invalid access token
 `405 Forbidden`||Missing permissions
@@ -1631,13 +1647,13 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/end-devices/DEV_EUI/activation' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"0000000","aFCntDown":0,"appSKey":"00000000000000000000000000000000","fCntUp":0,"fNwkSIntKey":"00000000000000000000000000000000","nFCntDown":0,"nwkSEncKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000"}}}'
+  --data '{"data":{"type":"activation","id":"DEV_EUI","attributes":{"devEui":"DEV_EUI","devAddr":"00000000","fNwkSIntKey":"00000000000000000000000000000000","sNwkSIntKey":"00000000000000000000000000000000","nwkSEncKey":"00000000000000000000000000000000","appSKey":"00000000000000000000000000000000","fCntUp":0,"nFCntDown":0,"aFCntDown":0}}}'
 ```
 
 #### Sample Response
 
 ```http
-HTTP/1.1 201 Created
+HTTP/1.1 200 OK
 ```
 
 ### Delete End-Device Activation
