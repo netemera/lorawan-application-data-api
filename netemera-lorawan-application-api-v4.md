@@ -1926,7 +1926,7 @@ A Downlink Packet has the following attributes:
 
 Attribute|Type|Optional|Description
 ---|---|---|---
-`devEui`|string|true|The EUI-64 of the end device
+`devEui`|string|false|The EUI-64 of the end device
 `recvTime`|string|true|The UTC timestamp of packet reception from the client in ISO 8601 format
 `fPort`|integer|true|The port in the range from 1 to 223
 `confirmed`|boolean|false|Require packet reception confirmation from the end device
@@ -1973,7 +1973,7 @@ curl \
   --url 'https://application.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{"data":{"type":"downlink-packet":,"attributes":{"fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
+  --data '{"data":{"type":"downlink-packet":,"attributes":{"devEui":"DEV_EUI","fPort":2,"confirmed":false,"frmPayload":"0000"}}}'
 ```
 
 #### Sample Response
