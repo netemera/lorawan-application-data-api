@@ -1763,6 +1763,7 @@ Status|Body|Description
 ```shell
 curl \
   --request GET \
+  --no-buffer \
   --url 'https://application.lorawan.netemera.com/api/v4/uplink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
@@ -1861,6 +1862,7 @@ Status|Body|Description
 ```shell
 curl \
   --request GET \
+  --no-buffer \
   --url 'https://application.lorawan.netemera.com/api/v4/uplink-packets/applications/APPLICATION_ID' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
@@ -2027,6 +2029,7 @@ Status|Body|Description
 ```shell
 curl \
   --request GET \
+  --no-buffer \
   --url 'https://application.lorawan.netemera.com/api/v4/downlink-packets/end-devices/DEV_EUI' \
   --header 'Authorization: Bearer ACCESS_TOKEN' \
   --header 'Accept: text/event-stream' \
